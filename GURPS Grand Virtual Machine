@@ -1,0 +1,108 @@
+	// Hit Location Sheetworker
+	on('change:location_roll', function (e) {
+	updateHitLocation();
+	});
+	// Update Hitlocation
+	function updateHitLocation() {
+	  console.log('********* updateHitLocation *********');
+	  getAttrs([,'hit_location','hit_location_modifier','wound_modifier','type','combat_notes','critical_table','type'], function(v) {
+		var attrs = {};
+	if (v.location_roll === "2") {
+	hitlocation = "Eye";
+	hit_location_modifier = "-9";
+	combat_notes = "[1] An attack that misses by 1 hits the torso instead. [2] Only impaling, piercing, and tight-beam burning attacks can target the eye – and only from the front or sides. Injury over HP/10 blinds the eye. Otherwise, treat as skull, but without the extra DR!";
+	wound_modifier = "x4";
+	critical_table = "head";
+	}
+	else if (v.location_roll === "Skull") {
+	hit_location_modifier = "-7";
+	combat_notes = "[1] An attack that misses by 1 hits the torso instead. [3] The skull gets an extra DR 2. Wounding modifier is x4. Knockdown rolls are at -10. Critical hits use the Critical Head Blow Table (p. 556). Exception: These special effects do not apply to toxic damage.";
+	wound_modifier = "x4";
+	critical_table = "head";
+	}
+	else if (v.location_roll === "Face" && v.type === "cor") {
+	hit_location_modifier = "-5";
+	combat_notes = "[1] An attack that misses by 1 hits the torso instead. [4] Jaw, cheeks, nose, ears, etc. If the target has an open-faced helmet, ignore its DR. Knockdown rolls are at -5. Critical hits use the Critical Head Blow Table. Corrosion damage gets a x1.5 wounding modifier, and if it inflicts a major wound, it also blinds one eye (both eyes on damage over full HP). Random attacks from behind hit the skull instead.";
+	wound_modifier = "x1.5";
+	critical_table = "head";
+	}
+	else if (v.location_roll === "Face" && v.type <> "cor") {
+	hit_location_modifier = "-5";
+	combat_notes = "[1] An attack that misses by 1 hits the torso instead. [4] Jaw, cheeks, nose, ears, etc. If the target has an open-faced helmet, ignore its DR. Knockdown rolls are at -5. Critical hits use the Critical Head Blow Table. Corrosion damage gets a x1.5 wounding modifier, and if it inflicts a major wound, it also blinds one eye (both eyes on damage over full HP). Random attacks from behind hit the skull instead.";
+	wound_modifier = "x4";
+	critical_table = "head";
+	}	
+	else if (v.location_roll === "RightLeg") {
+	hitlocationroll = "[[25]]";
+	hit_location_modifier = "-2";
+	}
+	else if (v.location_roll === "RightArm") {
+	hitlocationroll = "[[26]]";
+	hit_location_modifier = "-2";
+	}
+	else if (v.location_roll === "Torso") {
+	hitlocationroll = "[[27]]";;
+	hit_location_modifier = "0";
+	}
+	else if (v.location_roll === "Groin") {
+	hitlocationroll = "[[28]]";
+	hit_location_modifier = "-3";
+	}
+	else if (v.location_roll === "LeftArm") {
+	hitlocationroll = "[[29]]";
+	hit_location_modifier = "-2";
+	}
+	else if (v.location_roll === "LeftLeg") {
+	hitlocationroll = "[[30]]";
+	hit_location_modifier = "-2";
+	}
+	else if (v.location_roll === "RightHand") {
+	hitlocationroll = "[[31]]";
+	hit_location_modifier = "-4";
+	}
+	else if (v.location_roll === "RightFoot") {
+	hitlocationroll = "[[32]]";
+	hit_location_modifier = "-4";
+	}
+	else if (v.location_roll === "LeftHand") {
+	hitlocationroll = "[[33]]";
+	hit_location_modifier = "-4";
+	}
+	else if (v.location_roll === "LeftFoot") {
+	hitlocationroll = "[[34]]";
+	hit_location_modifier = "-4";
+	}
+	else if (v.location_roll === "Neck") {
+	hitlocationroll = "[[35]]";
+	hit_location_modifier = "-5";
+	}
+	else if (v.location_roll === "Vitals") {
+	hitlocationroll = "[[36]]";
+	hit_location_modifier = "-3";
+	}
+	else if (v.location_roll === "ArmorCT") {
+	hitlocationroll = "[[37]]";
+	hit_location_modifier = "-8";
+	}
+	else if (v.location_roll === "ArmorCO") {
+	hitlocationroll = "[[38]]";
+	hit_location_modifier = "-10";
+	}
+	else if (v.location_roll === "WeaponC") {
+	hitlocationroll = "[[39]]";
+	hit_location_modifier = "-5";
+	}
+	else if (v.location_roll === "Weapon1") {
+	hitlocationroll = "[[40]]";
+	hit_location_modifier = "-4";
+	}
+	else if (v.location_roll === "Weapon2") {
+	hitlocationroll = "[[41]]";
+	hit_location_modifier = "-3";
+	}
+	setAttrs({
+	hitlocationroll: hitlocationroll,
+	hit_location_modifier: hit_location_modifier,
+	});
+	});
+	}
