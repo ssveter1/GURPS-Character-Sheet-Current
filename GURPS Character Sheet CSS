@@ -1,1187 +1,5560 @@
+/* <!-- ==== ==== ==== ==== version 3.4.3 13MAY2019 Author: Scott Sveter ==== ==== ==== ==== --> */
 .charsheet {
-    background: #ffffff;
-    min-height: 100%;
-	width: 840px;
+	min-height: 100%;
+	border: none;
 }
-
 .sheet-wrapper {
-    min-width: 500px;
+	width: 840px;
+	font-family: Tahoma, sans-serif;
+    font-weight: normal;
+	font-size: 14px;
+	letter-spacing: 0px;
+	word-spacing: -1.6px;
+	color: #000000;
+	text-decoration: none;
+	font-style: normal;
+	font-variant: normal;
+	text-transform: none;
+	margin-bottom: 200px;
 }
-
 .sheet-box {
-    box-sizing: border-box;
-    font-size: 12px;
-    float: left;
-    margin: 0.2em;
-    overflow: auto;
-    outline: 1px solid gray;
+	box-sizing: border-box;
+	float: left;
+	overflow: auto;
+	border: 1px solid #000000;
+	margin: 1px;
+	background-color: White;
 }
-
 .sheet-label {
-    font-weight: bold;
-    text-align: right;
+	font-weight: bold;
+	text-align: right;
 }
-
 .sheet-hr {
-    box-shadow: 0 -1px 0 #000;
+	box-shadow: 0 -2px 0 #000;
 }
 
+.sheet-wrapper button[type=roll]::before {
+	font-family: "dicefontd6";
+	content: "L";
+	font-size: 16px;
+	color: #000000;
+	-webkit-transition-duration: 0.4s;
+	/* Safari */
+	transition-duration: 0.4s;
+}
+.sheet-wrapper button:hover {
+	text-shadow: 0 0 3px #0066ff, 0 0 5px #6699ff;
+}
+.sheet-wrapper input, select {
+	background: transparent;
+	font-weight: bold;
+	color: black;
+}
 
 /* ===== CUSTOM TABLES ===== */
+
 .sheet-table {
-    overflow: hidden;
+	overflow: hidden;
 }
-
 .sheet-header {
+	height:21px;
+	background-color: black;
+    border-bottom: 1px solid black;
+    color: white;
     text-align: center;
-    font-weight: bold;
-    text-transform: lowercase;
-    font-variant: small-caps;
-    letter-spacing: 1px;
-    white-space: nowrap;
-    height: 22px;
 }
-
+.sheet-subheader {
+	text-align: center;
+	font-size: 12px;
+	letter-spacing: -0.6px;
+	word-spacing: -0.6px;
+	color: white;
+	background-color: black;
+	text-decoration: none;
+	font-style: normal;
+	font-variant: small-caps;
+	text-transform: none;
+	white-space: nowrap;
+	height: 22px;
+}
+.sheet-readonly {
+	font-weight: bold;
+	color: #6d6d6d;
+}
+.sheet-readonly input {
+	font-weight: bold;
+	color: #6d6d6d;
+}
 .sheet-row {
-    height: 22px;
-    width: 100%;
+	height: 22px;
+	width: 100%;
 }
-
 .sheet-cell {
-    box-sizing: border-box;
-    float: left;
-    height: 22px;
-    line-height: 22px;
-    padding: 0px 1px;
+	box-sizing: border-box;
+	float: left;
+	height: inherit;
 }
-
 .sheet-cell > * {
-    width: 100%;
+	width: 100%;
 }
-
-/* This is a work-around, not sure what's causing the bug. */
-.repitem {
-    max-height: 44px;
-}
-
-
 /* ===== ROW COLOURING ===== */
-input {
-    background: transparent;
-}
 
-.repitem:nth-child(odd) .sheet-row-stats,
-.sheet-row:nth-child(even) {
-    background: #e0e0eb;
-}
 
-.repitem:nth-child(even) .sheet-row-stats,
-.sheet-row:nth-child(odd) {
-    background: #e6f3ff;
+.repitem:nth-child(odd) {
+	background-color: transparent;
 }
-
+.repitem:nth-child(even) {
+	background-color: rgba(232, 255, 232, 1);
+}
+.sheet-row-manuever:nth-child(odd) {
+	background-color: rgba(232, 255, 232, 1);
+}
+.sheet-row-manuever:nth-child(even) {
+	background-color: transparent;
+}
+/* .sheet-row-active-defense:nth-child(even) {
+	background-color: rgba(232, 255, 232, 1);
+}
+.sheet-row-active-defense:nth-child(odd) {
+	background-color: transparent;
+} */
 .sheet-box .sheet-row-details {
-    background: #FAFAFA;
+	background: #F5F5F5;
+	height: inherit;
+	overflow: auto;
 }
-
 
 /* ===== CUSTOM TABS ===== */
+
 input.sheet-tab1:not(:checked) ~ .sheet-tab1,
 input.sheet-tab2:not(:checked) ~ .sheet-tab2,
 input.sheet-tab3:not(:checked) ~ .sheet-tab3,
 input.sheet-tab4:not(:checked) ~ .sheet-tab4,
 input.sheet-tab5:not(:checked) ~ .sheet-tab5,
 input.sheet-tab6:not(:checked) ~ .sheet-tab6,
+input.sheet-tab7:not(:checked) ~ .sheet-tab7,
+input.sheet-tab8:not(:checked) ~ .sheet-tab8,
 input.sheet-tab0:not(:checked) ~ .sheet-tab0 {
-    display: none;
+	display: none;
+}
+
+div[class^="sheet-section"] { 	
+	display: none;
+}
+input.sheet-modtab51:checked ~ .sheet-section-activedefense,
+input.sheet-modtab52:checked ~ .sheet-section-meleeattacks,
+input.sheet-modtab53:checked ~ .sheet-section-rangedattacks,
+input.sheet-modtab54:checked ~ .sheet-section-combattools {
+	display: block;
+    border: 1px solid #a8a8a8;    
 }
 
 input.sheet-tab {
-    width: calc(16% - 4px);
-    max-width: 150px;
-    height: 20px;
-    outline: none !important;
-    position: relative;
-    cursor: pointer;
-    z-index: 1;
+	position: relative;
+	width: 80px;
+	height: 22px;
+	margin: 0;
+	opacity: 0;
+	z-index: 9999;
+	border: none;
+}
+input.sheet-modtab {
+	position: relative;
+	width: 140px;
+	height: 22px;
+	margin: 0;
+	opacity: 0;
+	z-index: 9999;
+	border: none;
+}
+input.sheet-tab + span {
+	position: relative;
+	display: inline-block;
+	width: 78px;
+	height: 23px;
+	margin: 0 0 -3px -80px;
+	padding: 2px 0 0 0;
+	cursor: pointer;
+	border: 1px solid #ddd;
+	border-bottom: 1px solid #a8a8a8;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	color: #bbb;
+	font-size: 14px;
+	text-align: center;
+	font-weight: bold;
+	line-height: 23px;
+}
+input.sheet-modtab + span {
+	position: relative;
+	display: inline-block;
+	width: 138px;
+	height: 23px;
+	margin: 0 0 -3px -140px;
+	padding: 2px 0 0 0;
+	cursor: pointer;
+	border: 1px solid #ddd;
+	border-bottom: 1px solid #a8a8a8;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	color: #bbb;
+	font-size: 14px;
+	text-align: center;
+	font-weight: bold;
+	line-height: 23px;
+}
+input.sheet-tab:checked + span {
+	color: #555;
+	border: 1px solid #a8a8a8;
+	border-bottom-color: white;
+}
+input.sheet-modtab:checked + span {
+	color: #555;
+	border: 1px solid #a8a8a8;
+	border-bottom-color: white;
+}
+input.sheet-modtab51:checked + span {
+	color: #000;
+	background-color: #FFA500;
+	border: 1px solid #a8a8a8;
+	border-color: black;
+}
+input.sheet-modtab52:checked + span {
+	color: #000;
+	background-color: #e60000;
+	border: 1px solid #a8a8a8;
+	border-color: black;
+}
+input.sheet-modtab53:checked + span {
+	color: #000;
+	background-color: #6495ED;
+	border: 1px solid #a8a8a8;
+	border-color: black;
+}
+input.sheet-modtab54:checked + span {
+	color: #000;
+	background-color: #009900;
+	border: 1px solid #a8a8a8;
+	border-color: black;
 }
 
-input.sheet-tab0 {
-    width: calc(4% - 4px);
-    font-family: "Pictos";
+input.sheet-tab0 + span {
+	font-family: "Pictos";
+	font-size: 16px;
 }
-
-input.sheet-tab1 {
-    margin-left: 1px;
-}
-
-input.sheet-tab::before {
-    content: attr(title);
-    display: inline-block;
-
-    background: #fff;
-    border: solid 1px #a8a8a8;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-
-    font-size: 14px;
-    font-weight: bold;
-    text-align: center;
-    
-    width: 100%;
-    height: 20px;
-}
-
-input.sheet-tab0::before {
-    content: attr(alt);
-}
-
-input.sheet-tab:checked::before {
-    border-bottom-color: white;
-}
-
 .sheet-tab-br {
-    border-bottom: 1px solid #a8a8a8;
-    margin-bottom: 5px;
-    margin-top: 1px;
-}
-
-div.sheet-loadoutchoice-content {
-  display:none;
-}
-
-
-/* =======DR TABS =========== */
-input.sheet-loadoutchoice[type="checkbox"][name="attr_loadoutchoice"][value="1"]:checked ~ div.sheet-loadoutchoice1,
-input.sheet-loadoutchoice[type="checkbox"][name="attr_loadoutchoice"][value="2"]:checked ~ div.sheet-loadoutchoice2,
-input.sheet-loadoutchoice[type="checkbox"][name="attr_loadoutchoice"][value="3"]:checked ~ div.sheet-loadoutchoice3 {
-	display: block;
-}
-
-
-/* =======MAGICTABS ========= */
-input.sheet-magictab1:not(:checked) ~ .sheet-magictab1,
-input.sheet-magictab2:not(:checked) ~ .sheet-magictab2 {
-    display: none;
-}
-
-.sheet-magictab-br {
-    border-bottom: 1px solid #a8a8a8;
-    margin-bottom: 5px;
-    margin-top: 1px;
+	border-bottom: 1px solid #a8a8a8;
+	margin-bottom: 5px;
+	margin-top: -1px;
 }
 
 /* ===== SUB ROWS ===== */
+
 .sheet-sub-row {
-    font-size: 90%;
-    color: darkgray;
+	font-size: 90%;
+	color: #2D2D2D;
 }
-
-.sheet-sub-row .sheet-popup {
-    color: #AE4D4D;
-}
-
 .sheet-box .sheet-toggle {
-    position: absolute;
-    left: 0;
-    z-index: 1;
+	position: absolute;
+	left: 0;
+	z-index: 1;
+}
+.sheet-toggle:checked ~ .sheet-row-details {
+	display: inline-block;
+}
+.sheet-toggle ~ .sheet-row-details {
+	display: none;
+}
+.sheet-toggle:checked ~ .sheet-content {
+	display: inline-block;
+}
+.sheet-toggle ~ .sheet-content {
+	display: none;
+}
+.sheet-toggle:checked ~ .sheet-row-details-rowid {
+	display: inline-block;
+}
+.sheet-toggle ~ .sheet-row-details-rowid {
+	display: none;
+}
+.sheet-toggle:checked ~ .sheet-row-active-defense-sub-row {
+	display: inline-block;
+}
+.sheet-toggle ~ .sheet-row-active-defense-sub-row {
+	display: none;
+}
+.sheet-toggle:checked ~ .sheet-subheader-melee {
+	display: inline-block;
+}
+.sheet-toggle ~ .sheet-subheader-melee {
+	display: none;
+}
+.sheet-toggle:checked ~ .sheet-row-melee-sub-row {
+	display: inline-block;
+}
+.sheet-toggle ~ .sheet-row-melee-sub-row {
+	display: none;
+}
+.sheet-toggle:checked ~ .sheet-row-ranged-sub-row {
+	display: inline-block;
+}
+.sheet-toggle ~ .sheet-row-ranged-sub-row {
+	display: none;
+}
+.sheet-toggle:checked ~ .sheet-row-ritualdetails {
+	display: inline-block;
+}
+.sheet-toggle ~ .sheet-row-ritualdetails {
+	display: none;
+}
+.sheet-toggle:checked ~ .sheet-ritualsubheader {
+	display: inline-block;
+}
+.sheet-toggle ~ .sheet-ritualsubheader {
+	display: none;
+}
+.sheet-toggle:checked ~ .sheet-row-rituals1 {
+	display: inline-block;
+}
+.sheet-toggle ~ .sheet-row-rituals1 {
+	display: none;
+}
+.sheet-toggle:checked ~ .sheet-row-rituals2 {
+	display: inline-block;
+}
+.sheet-toggle ~ .sheet-row-rituals2 {
+	display: none;
+}
+.sheet-toggle:checked ~ .sheet-row-rituals3 {
+	display: inline-block;
+}
+.sheet-toggle ~ .sheet-row-rituals3 {
+	display: none;
+}
+.sheet-toggle:checked ~ .sheet-row-rituals4 {
+	display: inline-block;
+}
+.sheet-toggle ~ .sheet-row-rituals4 {
+	display: none;
 }
 
-.sheet-toggle:checked ~ .sheet-row-details { display: inline-block; }
-.sheet-toggle ~ .sheet-row-details { display: none; }
-
-/*
-.sheet-box .sheet-row-details:hover,
-.sheet-box .sheet-row:hover + .sheet-row-details { display: block; }
-.sheet-box .sheet-row-details { display: none; }
-*/
-
-
-/* ======== Sheet-arrow to hide things========*/
-input.sheet-arrow
-{
-    float: left;
-}
-
-input.sheet-arrow:checked ~ div.sheet-hold
-{
-    display: none;
-}
-
-input.sheet-arrow[type="checkbox"], .sheet-arrow
-{
-    opacity: 0;
-    width: 16px;
-    height: 16px;
-    position: relative;
-    top: 5px;
-    left: 6px;
-    margin: -10px;
-    cursor: pointer;
-    z-index: 1;
-}
-
-input.sheet-arrow[type="checkbox"] + span::before
-{
-    margin-right: 4px;
-    line-height: 14px;
-    text-align: center;
-    display: inline-block;
-    vertical-align: middle;
-    
-    content: "▼";
-    width: 14px;
-    height: 14px;
-    font-size: 12px;
-}
-
-input.sheet-arrow[type="checkbox"]:checked + span::before
-{
-    content: "►";
-}
-
+/* ======= Custom Checkboxes ========= */
 
 /* ===== BUTTONS ===== */
+
 .sheet-box button {
-    margin: 0 !important;
-    height: 22px;
-    border-radius: 0;
-    line-height: 16px;
-    background-image: none;
-    border: none;
+	border-radius: 0;
+	background-image: none;
+	border: none;
 }
-
 .sheet-box button[type="roll"] {
-    width: 22px;
-    background: none;
+	background: none;
+	border: none;
+	font-size: 1em;
 }
-
 .sheet-box button.sheet-roll-tracker:before {
-    font-family: "Pictos" !important;
-    content: "t" !important;
+	font-family: "Pictos" !important;
+	content: "t" !important;
+	line-height: initial;
 }
-
-
 /* ===== INPUTS ===== */
+/* ==== CSS to makee inputs glow when hovered ==== */
+.sheet-box select:hover {
+	-webkit-box-shadow: inset 0px 0px 4px 2px rgba(0,214,255,0.43); 
+	box-shadow: inset 0px 0px 4px 2px rgba(0,214,255,0.43);
+}
+.sheet-box textarea:hover {
+	-webkit-box-shadow: inset 0px 0px 4px 2px rgba(0,214,255,0.43); 
+	box-shadow: inset 0px 0px 4px 2px rgba(0,214,255,0.43);
+}
+.sheet-box input[type="text"]:hover {
+	-webkit-box-shadow: inset 0px 0px 4px 2px rgba(0,214,255,0.43); 
+	box-shadow: inset 0px 0px 4px 2px rgba(0,214,255,0.43);
+}
+.sheet-box input[type="number"]:hover {
+	-webkit-box-shadow: inset 0px 0px 4px 2px rgba(0,214,255,0.43); 
+	box-shadow: inset 0px 0px 4px 2px rgba(0,214,255,0.43);
+}
+.sheet-box input[type="radio"]:hover {
+	-webkit-box-shadow: inset 0px 0px 4px 2px rgba(0,214,255,0.43); 
+	box-shadow: inset 0px 0px 4px 2px rgba(0,214,255,0.43);
+}
+.sheet-box input[type="checkbox"]:hover {
+	-webkit-box-shadow: inset 0px 0px 4px 2px rgba(0,214,255,0.43); 
+	box-shadow: inset 0px 0px 4px 2px rgba(0,214,255,0.43);
+}
 .sheet-row input[type=number]::-webkit-inner-spin-button,
 .sheet-row input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	margin: 0;
+	font-weight: bold;
 }
-
 .sheet-row input[type=number] {
-    -moz-appearance: textfield;
+	-moz-appearance: textfield;
+	-webkit-appearance: textfield;
+	font-weight: bold;
 }
-
+.sheet-row input[type="text"]:hover {
+	-webkit-box-shadow: inset 0px 0px 4px 2px rgba(0,214,255,0.43); 
+	box-shadow: inset 0px 0px 4px 2px rgba(0,214,255,0.43);
+}
+.sheet-row input[type="number"]:hover {
+	-webkit-box-shadow: inset 0px 0px 4px 2px rgba(0,214,255,0.43); 
+	box-shadow: inset 0px 0px 4px 2px rgba(0,214,255,0.43);
+}
 .sheet-row select {
-    width: 100%;
-    height: 20px;
-    padding: 0;
-    margin: 0;
-    margin-top: -2px;
+	width: 100%;
+	height: 20px;
+	padding: 0;
+	margin-top: 1px;
 }
-
 .sheet-row input:not(.sheet-inline) {
-    width: 100% !important;
+	height: 20px;
+	width: 100% !important;
+	font-family: Tahoma, Geneva, sans-serif;
+	letter-spacing: 0px;
+	word-spacing: -1.6px;
+	color: #000000;
+	font-weight: Bold;
+	text-decoration: none;
+	font-style: normal;
+	font-variant: normal;
+	text-transform: none;
+	padding-bottom: 0px;
+	margin-bottom: 2px;
 }
-
 .sheet-row input {
-    height: 20px;
-    margin-top: -2px;
-    padding: 0 2px;
-    line-height: 22px;
-    text-align: center;
-
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    cursor: initial;
+	height: 20px;
+	text-align: center;
+	background: transparent;
+	border: none;
+	border-radius: 0;
+	box-shadow: none;
+	cursor: initial;
+	font-family: Tahoma, Geneva, sans-serif;
+	letter-spacing: 0px;
+	word-spacing: -1.6px;
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+	font-style: normal;
+	font-variant: normal;
+	text-transform: none;
+	padding-bottom: 0px;
+	margin-bottom: 2px;
 }
-
-.sheet-row input:not(:disabled), .sheet-row input:not(:readonly) {
-    border-radius: 2px;
-
-    -webkit-box-shadow: inset 0px 0px 1px 0px rgba(98, 98, 94, 0.75);
-    -moz-box-shadow:    inset 0px 0px 1px 0px rgba(98, 98, 94, 0.75);
-    box-shadow:         inset 0px 0px 1px 0px rgba(98, 98, 94, 0.75);
+.sheet-row input:not(:disabled),
+.sheet-row input:not(:readonly) {
+	-webkit-box-shadow: inset 0px 0px 1px 0px rgba(98, 98, 94, 0.75);
+	-moz-box-shadow: inset 0px 0px 1px 0px rgba(98, 98, 94, 0.75);
+	box-shadow: inset 0px 0px 1px 0px rgba(98, 98, 94, 0.75);
+	font-weight: bold;
 }
-
-.sheet-row .sheet-textarea {
-    text-align: center;
+.sheet-row-details textarea {
+	text-align: left;
+	width: 100%;
+	  height: 44px;
+	  padding: 4px;
+	  box-sizing: border-box;
+	  background-color: transparent;
+	  color: Black;
+	  resize: vertical;
+	  min-height: 22px;
 }
-
-.sheet-row .sheet-textarea .sheet-label {
-    text-align: center;
-    font-variant: small-caps;
-    text-transform: lowercase;
-}
-
-.sheet-row .sheet-textarea textarea {
-    text-align: initial;
-    outline: none;
-    resize: none;
-    overflow: auto;
-    margin: 0;
-    margin-bottom: 4px;
-    width: 98%;
-    height: 60px;
-}
-
-
 /* ===== DIFFERENCE COLOURING ===== */
+
 .sheet-diff[value="0"] + input {
-    color: green;
+	color: green;
 }
-
-
 /* ===== CUSTOM CHECKBOXES ===== */
 .sheet-box input[type="checkbox"] {
-    opacity: 0;
-    width: 22px;
-    height: 22px;
-    cursor: pointer;
-    z-index: 1;
+  opacity: 0;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  z-index: 1;
+  font-family: "Pictos";
+}
+
+.sheet-box input[type="radio"] {
+	height: 14px;
+	cursor: pointer;
+}
+.sheet-box input[type="checkbox"] {
+	height: 14px;
+	cursor: pointer;
 }
 
 .sheet-box input[type="checkbox"] ~ .sheet-checkbox:before {
-    width: 18px;
-    height: 18px;
-    line-height: 22px;
-
-    margin: 0;
-    padding: 0;
-
-    text-align: center;
-    display: inline-block;
-    vertical-align: middle;
-
-    font-size: 18px;
-    font-family: "Pictos";
+  width: 14px;
+  height: 14px;
+  line-height: 22px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 14px;
+  font-family: "Pictos";
 }
 
 .sheet-box .sheet-boolean ~ .sheet-checkbox:before {
-    border: solid 1px #a8a8a8;
-
-    position: relative;
-    top: -23px;
-    left: -1px;
-    
-    -moz-box-shadow: 0 0 2px #ccc;
-    -webkit-box-shadow: 0 0 2px #ccc;
-    box-shadow: 0 0 2px #ccc;
-    
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-
-    background: #f6f6f6;
-    background: -moz-radial-gradient(#f6f6f6, #dfdfdf);
-    background: -webkit-radial-gradient(#f6f6f6, #dfdfdf);
-    background: -ms-radial-gradient(#f6f6f6, #dfdfdf);
-    background: -o-radial-gradient(#f6f6f6, #dfdfdf);
-    background: radial-gradient(#f6f6f6, #dfdfdf);
+  border: solid 1px #a8a8a8;
+  position: relative;
+  top: -23px;
+  left: -1px;
+  -moz-box-shadow: 0 0 2px #ccc;
+  -webkit-box-shadow: 0 0 2px #ccc;
+  box-shadow: 0 0 2px #ccc;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background: #f6f6f6;
+  background: -moz-radial-gradient(#f6f6f6, #dfdfdf);
+  background: -webkit-radial-gradient(#f6f6f6, #dfdfdf);
+  background: -ms-radial-gradient(#f6f6f6, #dfdfdf);
+  background: -o-radial-gradient(#f6f6f6, #dfdfdf);
+  background: radial-gradient(#f6f6f6, #dfdfdf);
 }
 
 .sheet-box .sheet-boolean:checked ~ .sheet-checkbox:before {
-    content: "3";
+  content: "";
 }
 
 .sheet-boolean {
-    opacity:1 !important;
+  opacity: 1 !important;
 }
+
+/* Fake checkbox */
 
 .sheet-box .sheet-toggle ~ .sheet-checkbox:before {
-    content: "4";
+	content: "4";
 }
-
 .sheet-box .sheet-toggle ~ .sheet-checkbox {
-    position: absolute;
+	position: absolute;
 }
-
 .sheet-box .sheet-toggle:checked ~ .sheet-checkbox:before {
-    transform:rotate(90deg);
-    -ms-transform:rotate(90deg); /* IE 9 */
-    -webkit-transform:rotate(90deg); /* Opera, Chrome, and Safari */
+	transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	/* IE 9 */
+	-webkit-transform: rotate(90deg);
+	/* Opera, Chrome, and Safari */
+	;
 }
 
+.sheet-textbutton {
+	position: relative;
+	background: transparent;
+}
+.sheet-textbutton .sheet-skill {
+	/*display: none;*/
+}
+.sheet-textbutton .sheet-tech {
+	display: none;
+}
 
 /* ===== UTILITY ===== */
+
 .sheet-right {
-    float: right;
+	float: right;
 }
-
 .sheet-left {
-    float: left;
+	float: left;
 }
-
 .sheet-inline {
-    display: inline;
+	display: inline;
 }
-
 .sheet-clearfix:before,
 .sheet-clearfix:after {
-    content: "";
-    display: table;
+	content: "";
+	display: table;
 }
-
 .sheet-clearfix:after {
-    clear: both;
+	content: "";
+	clear: both;
+	display: table;
 }
-
 .sheet-hover {
-    position: relative;
-    z-index: 0;
+	position: relative;
+	z-index: 0;
 }
-
-
 /* ===== CSS TOOLTIP ===== */
-.sheet-popup {
-    color: darkred;
-}
 
 .sheet-popup + .sheet-tooltip {
-    z-index: 10;
-    display: none;
-    padding: 4px;
-    text-align: left;
-    margin-left: -40px;
-    font-weight: normal;
-    text-transform: initial;
-    font-variant: initial;
+	z-index: 10;
+	display: none;
+	padding: .2em;
+	text-align: left;
+	margin-left: -40px;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 11px;
+	letter-spacing: -0.2px;
+	word-spacing: -0.2px;
 }
-
 .sheet-popup:hover + .sheet-tooltip {
-    width: auto;
-    display: inline;
-    position: absolute;
-    color: #111;
-    border: 1px solid #DCA;
-    background: #fffAF0;
-    line-height: 1.5em;
+	display: inline;
+	width: auto;
+	position: absolute;
+	color: #111;
+	border: 1px solid #DCA;
+	background-color: #f9ebd2;
+	line-height: 1.5em;
 }
-
 .sheet-popup + .sheet-tooltip {
-    border-radius: 2px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    -moz-box-shadow: 5px #CCC;
-    -webkit-box-shadow: 5px #CCC;
-    box-shadow: 5px #CCC;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-box-shadow: 5px #CCC;
+	-webkit-box-shadow: 5px #CCC;
+	box-shadow: 5px #CCC;
 }
-
 .sheet-tooltip table {
-    float: left;
-    line-height: 2em;
-    font-size: 11px;
-    border-collapse: collapse;
-    text-align: center;
+	float: left;
+	line-height: 2em;
+	border-collapse: collapse;
+	text-align: center;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 11px;
+	letter-spacing: -0.2px;
+	word-spacing: -0.2px;
 }
-
 .sheet-tooltip td {
-    padding: 0 8px;
+	padding: 0 8px;
 }
-
 .sheet-tooltip tbody tr:nth-child(odd) {
-    background: #FFF;
+	background: #FFF;
 }
-
-
 /* ===== MODULE SUPPORT ===== */
+
 input.sheet-module-roll:checked ~ .sheet-wrapper .sheet-module-on-roll,
 .sheet-wrapper .sheet-module-off-roll {
-    display: inline-block;
+	display: inline-block;
 }
-
 input.sheet-module-roll:checked ~ .sheet-wrapper .sheet-module-off-roll,
 .sheet-wrapper .sheet-module-on-roll {
-    display: none;
+	display: none;
+}
+
+/* ==== align inputs and text ==== */
+
+input,
+textarea,
+select,
+button {
+	-webkit-box-sizing: border-box;
+	/* For legacy WebKit based browsers */
+	-moz-box-sizing: border-box;
+	/* For legacy (Firefox <29) Gecko based browsers */
+	box-sizing: border-box;
+}
+/* ===== LAYOUT ===== */
+
+.sheet-box .sheet-row-details .sheet-col0 {
+	width: 40px;
+	text-align: center;
+}
+.sheet-box .sheet-row-details .sheet-col1 {
+	width: calc(100% - 40px);
+}
+/* -- TOOLTIPS -- */
+.sheet-combat .sheet-tooltip {
+	margin-left: -120px;
+}
+.sheet-ranged-attacks .sheet-tooltip {
+	margin-left: -100px;
+}
+.sheet-ranged-attacks .sheet-col1 .sheet-tooltip {
+	margin-left: -40px;
+}
+.sheet-ranged-attacks .sheet-row-details .sheet-col2 .sheet-tooltip {
+	margin-left: 40px;
+}
+/* -- CHARACTER SHEET HEADING --*/
+
+.sheet-identity {
+	width: 325px;
+}
+.sheet-identity input {
+	border-bottom: 1px solid #c0c0c0;
+}
+
+.sheet-identity .sheet-header-identity .sheet-col0 {
+	width: 100%;
+	text-align: center;
+}
+.sheet-identity .sheet-row-identity .sheet-col0 {
+	width: 25%;
+	padding-left: 2px;
+}
+.sheet-identity .sheet-row-identity .sheet-col1 {
+	width: 75%;
+	padding-right: 2px;
+}
+.sheet-identity .sheet-row-identity .sheet-col1 input {
+	text-align: left;
+}
+
+.sheet-player {
+	width: 325px;
+}
+.sheet-player input {
+border-bottom: 1px solid #c0c0c0;
+}
+.sheet-player .sheet-header-player .sheet-col0 {
+	width: 100%;
+	text-align: center;
+}
+.sheet-player .sheet-row-player .sheet-col0 {
+	width: 25%;
+	padding-left: 2px;
+}
+.sheet-player .sheet-row-player .sheet-col1 {
+	width: 75%;
+	padding-right: 2px;
+}
+.sheet-player .sheet-row-player .sheet-col1 input {
+	text-align: left;
 }
 
 
-/* ===== LAYOUT ===== */
-.sheet-box .sheet-row-details .sheet-col0 { width: 40px; text-align: center; }
-.sheet-box .sheet-row-details .sheet-col1 { width: calc(100% - 40px); }
+.sheet-description {
+	width: 652px;
+}
+.sheet-description input {
+border-bottom: 1px solid #c0c0c0;
+}
+.sheet-description .sheet-header-description .sheet-col0 {
+	width: 100%;
+	text-align: center;
+}
+.sheet-description .sheet-row-descr .sheet-col0 {
+	width: 75px;
+	padding-left: 2px;
+}
+.sheet-description .sheet-row-descr .sheet-col1 {
+	width: 140px;
+	padding-left: 2px;
+	border-right: 1px solid #000000;
+}
+.sheet-description .sheet-row-descr .sheet-col1 input {
+	text-align: left;
+}
+.sheet-description .sheet-row-descr .sheet-col2 {
+	width: 55px;
+	padding-left: 2px;
+}
+.sheet-description .sheet-row-descr .sheet-col3 {
+	width: 80px;
+	padding-left: 2px;
+	border-right: 1px solid #000000;
+}
+.sheet-description .sheet-row-descr .sheet-col3tl {
+	width: 80px;
+	padding-left: 6px;
+	border-right: 1px solid #000000;
+}
+.sheet-description .sheet-row-descr .sheet-col3 input {
+	text-align: left;
+}
+.sheet-description .sheet-row-descr .sheet-col4 {
+	width: 55px;
+	padding-left: 2px;
+}
+.sheet-description .sheet-row-descr .sheet-col5 {
+	width: calc(100% - 405px);
+	padding-left: 2px;
+}
+.sheet-description .sheet-row-descr .sheet-col5 input {
+	text-align: left;
+}
+.sheet-description .sheet-row-descr-bottom .sheet-col0 {
+	width: 75px;
+	padding-left: 2px;
+}
+.sheet-description .sheet-row-descr-bottom .sheet-col1 {
+	width: 140px;
+	padding-left: 2px;
+	border-right: 1px solid #000000;
+}
+.sheet-description .sheet-row-descr-bottom .sheet-col1 input {
+	text-align: left;
+}
+.sheet-description .sheet-row-descr-bottom .sheet-col2 {
+	width: 55px;
+	padding-left: 2px;
+}
+.sheet-description .sheet-row-descr-bottom .sheet-col3 {
+	width: 80px;
+	padding-left: 2px;
+	border-right: 1px solid #000000;
+}
+.sheet-description .sheet-row-descr-bottom .sheet-col3tl {
+	width: 80px;
+	padding-left: 6px;
+	border-right: 1px solid #000000;
+}
+.sheet-description .sheet-row-descr-bottom .sheet-col3 input {
+	text-align: left;
+}
+.sheet-description .sheet-row-descr-bottom .sheet-col4 {
+	width: 55px;
+	padding-left: 2px;
+}
+.sheet-description .sheet-row-descr-bottom .sheet-col5 {
+	width: calc(100% - 405px);
+	padding-left: 2px;
+}
+.sheet-description .sheet-row-descr-bottom .sheet-col5 input {
+	text-align: left;
+}
 
-/* -- TOOLTIPS -- */
-.sheet-tooltip input {  }
-.sheet-lift .sheet-tooltip { margin-left: -170px; }
-.sheet-miscelleneous .sheet-tooltip { margin-left: -75px; }
-.sheet-active-defense .sheet-tooltip { margin-left: -120px; }
-.sheet-melee-attacks .sheet-tooltip { margin-left: -100px; }
-.sheet-ranged-attacks .sheet-tooltip { margin-left: -100px; }
-.sheet-ranged-attacks .sheet-col1 .sheet-tooltip { margin-left: -40px; }
+.sheet-point-summary {
+	width: 180px;
+	float: none;
+	display: inline-block;
+}
 
-/* -- CHARACTER SHEET HEADING --*/
-.sheet-logo {width: 229px;float:left;}
-.sheet-characterheading { width: calc(100% - 230px - 0.8em); float:right;}
-.sheet-characterheading .sheet-row-heading {width:100%;}
-.sheet-characterheading .sheet-row .sheet-col0 {width:50px;}
-.sheet-characterheading .sheet-row .sheet-col00 {width:78px;}
-.sheet-characterheading .sheet-row .sheet-col1 {width:186px;}
-.sheet-characterheading .sheet-row .sheet-col2 {width:35px;}
-.sheet-characterheading .sheet-row .sheet-col3 {width:90px;}
-.sheet-characterheading .sheet-row .sheet-col4 {width:60px; margin-left: 50px;}
-.sheet-characterheading .sheet-row .sheet-col5 {width:70px; margin-left: 10px;}
-.sheet-characterheading .sheet-row .sheet-col6 {width: calc(100% - 80px - 0.8em); }
-.sheet-characterheading input {text-align: left;}
+.sheet-point-summary .sheet-header-point-summary .sheet-col0 {
+	width: 100%;
+	color: white;
+}
+.sheet-point-summary .sheet-row-point-summary .sheet-col0 {
+	width: calc(100% - 65px);
+	text-align: left;
+	padding-left: 2px;
+}
+
+.sheet-point-summary .sheet-row-point-summary .sheet-col1 {
+	width: 65px;
+	padding-right: 12px;
+}
+.sheet-point-summary .sheet-row-point-summary .sheet-col1 input {
+	text-align: right;
+	color: #828282;
+}
+.sheet-point-summary .sheet-row-point-summary-unspent {
+	padding-bottom: 1px;
+	height: 24px;
+    border-top: 3px solid #000000;
+}
+.sheet-point-summary .sheet-row-point-summary-unspent .sheet-col0 {
+	width: calc(100% - 65px);
+	text-align: left;
+	padding-left: 2px;
+}
+.sheet-point-summary .sheet-row-point-summary-unspent .sheet-col1 {
+	width: 65px;
+	text-align: right;
+	padding-right: 12px;
+}
+.sheet-point-summary .sheet-row-point-summary-unspent .sheet-col1 input {
+	text-align: right;
+	color: #828282;
+}
+/* --- STATUS BAR --- */
+.sheet-status-bar { width: calc(100% - 0.4em); }
+.sheet-status-bar .sheet-header-status {
+	width: 100%;
+	font-size: 12px;
+	height: 16px;
+}
+.sheet-status-bar .sheet-row-status {
+	text-align: center;
+}
+.sheet-status-bar .sheet-header-status .sheet-col0 {width: 15%;}
+.sheet-status-bar .sheet-header-status .sheet-col1 {width: 55%;}
+.sheet-status-bar .sheet-row-status .sheet-col0 {width: 15%;}
+.sheet-status-bar .sheet-row-status .sheet-col1 {width: 55%;}
+
 
 /* -- GENERAL -- */
-.sheet-attribute { width: 180px; }
-.sheet-attribute .sheet-header .sheet-col0 { width: 80px; }
-.sheet-attribute .sheet-header .sheet-col1 { width: 30px; }
-.sheet-attribute .sheet-header .sheet-col2 { width: 52px; }
-.sheet-attribute .sheet-row .sheet-col0 { width: 50px; }
-.sheet-attribute .sheet-row .sheet-col1 { width: 35px; }
-.sheet-attribute .sheet-row .sheet-col2 { width: 35px; }
-.sheet-attribute .sheet-row .sheet-col3 { width: 35px; }
-.sheet-attribute .sheet-row .sheet-col4 { width: 22px; }
-.sheet-attribute .sheet-row-thrust-damage .sheet-col1 { width: 90px; }
-.sheet-attribute .sheet-row-swing-damage .sheet-col1 { width: 90px; }
-.sheet-main-attribute .sheet-row { height: 35px; }
-.sheet-main-attribute .sheet-row .sheet-col0 { font-size: 20px; }
-.sheet-main-attribute .sheet-row .sheet-col1 input { font-size: 20px; }
-.sheet-main-attribute .sheet-cell { padding: 0.25em; }
-.sheet-main-attribute .sheet-tooltip { font-size: 11px; }
-.sheet-attribute .sheet-row-perception { height: 25px; }
-.sheet-attribute .sheet-row-perception .sheet-col0 { font-size: 16px; }
-.sheet-attribute .sheet-row-perception .sheet-col1 input { font-size: 16px; }
-.sheet-attribute .sheet-row-perception .sheet-tooltip { font-size: 11px; }
-.sheet-attribute .sheet-row-willpower { height: 25px; }
-.sheet-attribute .sheet-row-willpower .sheet-col0 { font-size: 16px; }
-.sheet-attribute .sheet-row-willpower .sheet-col1 input { font-size: 16px; }
-.sheet-attribute .sheet-row-willpower .sheet-tooltip { font-size: 11px; }
 
-.sheet-stats { width: 180px; }
-.sheet-stats input { font-size: 13px;}
-.sheet-stats .sheet-header .sheet-col0 { width: 72px; }
-.sheet-stats .sheet-header .sheet-col1 { width: 41px; }
-.sheet-stats .sheet-header .sheet-col2 { width: 30px; }
-.sheet-stats .sheet-header .sheet-col3 { width: 37px; }
-.sheet-stats .sheet-row { font-size: 13px; height: 31px; }
-.sheet-stats .sheet-row .sheet-col0 { width: 75px; }
-.sheet-stats .sheet-row .sheet-col0 input { text-align:left; }
-.sheet-stats .sheet-row .sheet-col1 { width: 35px; }
-.sheet-stats .sheet-row .sheet-col2 { width: 35px; }
-.sheet-stats .sheet-row .sheet-col3 { width: 35px; }
-.sheet-stats .sheet-row-current-points .sheet-col0 { width: 75px; }
-.sheet-stats .sheet-row-current-points .sheet-col1 { width: 35px; }
-.sheet-stats .sheet-tooltip table { text-align: left; font-size: 9px; }
-.sheet-stats .sheet-tooltip table .sheet-label { text-align: left; font-size: 9px; }
-.sheet-stats .sheet-cell {
-    margin: auto;
-    padding: 0.2em;
+.sheet-attribute {
+	width: 243px;
+}
+.sheet-attribute input {
+border-bottom: 1px solid #c0c0c0;
+}
+.sheet-attribute .sheet-tooltip {
+	margin-left: 100px;
+}
+/* --SHEET BOX -- */
+
+.sheet-attribute .sheet-header .sheet-col0 {
+	width: 110px;
+	text-align: left;
+	padding-left: 2px;
+}
+/* --TABLE HEADER COL -- */
+
+.sheet-attribute .sheet-header .sheet-col1 {
+	width: 33px;
+	margin-left: 40px;
+	text-align: right;
+	padding-right: 2px;
+}
+/* --TABLE HEADER COL -- */
+
+.sheet-attribute .sheet-header .sheet-col2 {
+	width: 32px;
+	text-align: right;
+	padding-right: 2px;
+}
+.sheet-attribute .sheet-header .sheet-col3 {
+	width: 100%;
+}
+
+/* --TABLE HEADER COL -- */
+
+.sheet-attribute .sheet-row .sheet-col0 {
+	width: 110px;
+	text-align: left;
+	padding-left: 2px;
+}
+/* --TABLE COL -- */
+
+.sheet-attribute .sheet-row .sheet-col1 {
+	width: 40px;
+	text-align: right;
+	padding-right: 2px;
+}
+.sheet-attribute .sheet-row .sheet-col1 input {
+	border-bottom: none;
+	text-align: right;
+}
+/* --TABLE COL -- */
+
+.sheet-attribute .sheet-row .sheet-col2 {
+	width: 32px;
+	margin-left: 2px;
+}
+.sheet-attribute .sheet-row .sheet-col2 input {
+	text-align: right;
+	padding-right: 2px;
+}
+	
+/* --TABLE COL -- */
+
+.sheet-attribute .sheet-row .sheet-col3 {
+	width: 32px;
+	margin-left: 2px;
+}
+.sheet-attribute .sheet-row .sheet-col3 input {
+	text-align: right;
+	padding-right: 2px;
+}
+/* --TABLE COL -- */
+
+.sheet-attribute .sheet-row .sheet-col4 {
+	width: 22px;
+	padding-bottom: 2px;
+}
+/* --TABLE COL -- */
+.sheet-attribute .sheet-row-basic-damage .sheet-col0 {
+	width: 30px;
+	text-align: right;
+}
+.sheet-attribute .sheet-row-basic-damage .sheet-tooltip {
+	margin-top: -346px;
+	margin-left: 70px;
+}
+.sheet-attribute .sheet-row-basic-damage .sheet-col1 {
+	width: 60px;
+}
+.sheet-attribute .sheet-row-basic-damage .sheet-col2 {
+	width: 22px;
 }
 
 
+/* --TABLE COL -- */
 
-.sheet-senses { width: calc(100% - 180px - 180px - 1.2em); }
-.sheet-senses {float:right ;}
-.sheet-senses .sheet-col0 {width: 95px; text-align:center;} /*Sense*/
-.sheet-senses .sheet-col1 {width: 40px; text-align:center;} /*Stat*/
-.sheet-senses .sheet-col2 {width: 40px; text-align:center;} /*mod*/
-.sheet-senses .sheet-col3 {width: 35px; text-align:center;} /*Pts*/
-.sheet-senses .sheet-col4 {width: 22px; text-align:center;} /*roll column*/
-.sheet-senses .sheet-col5 {width: 30px; margin-right: 8px;} /*Notes*/
-.sheet-senses .sheet-col6 {width: calc(100% - 38px); }  /*Notes input column*/
-.sheet-senses .sheet-col6 input { text-align:left; }
-
-.sheet-health { width: calc(100% - 180px - 180px - 1.2em); }
-.sheet-health .sheet-col0 {width: 126px; margin-left: 4px; } /*Injury Check Name*/
-.sheet-health .sheet-col1 {width: 40px; text-align:center;} /*Stat*/
-.sheet-health .sheet-col2 {width: 40px; text-align:center;} /*mod*/
-.sheet-health .sheet-col3 {width: 22px; text-align:center;} /*roll column*/
-.sheet-health .sheet-col4 {width: 30px; margin-right: 8px;} /*Notes*/
-.sheet-health .sheet-col5 {width: calc(100% - 38px); }  /*Notes input column*/
-.sheet-health .sheet-col5 input { text-align:left; }
-
-.sheet-points { width: 120px; }
-.sheet-points .sheet-header .sheet-col0 { width: 100%; }
-.sheet-points .sheet-row .sheet-col0 { width: 80px; }
-.sheet-points .sheet-row .sheet-col1 { width: 40px; }
-
-.sheet-lift { width: calc(100% - 180px - 180px - 1.2em); }
-.sheet-lift .sheet-col0 { width: 180px; }
-.sheet-lift .sheet-col1 { width: calc(100% - 180px); text-align: center; }
-
-.sheet-encumberance { width: calc(100% - 180px - 180px - 1.2em); float:right;}
-.sheet-encumberance .sheet-col0 { width: 100px; }
-.sheet-encumberance .sheet-col1 { width: calc((100% - 100px) * 0.4); }
-.sheet-encumberance .sheet-col2 { width: calc((100% - 100px) * 0.3); }
-.sheet-encumberance .sheet-col3 { width: calc((100% - 100px) * 0.3); }
-.sheet-encumberance .sheet-row-load { 
-	height: 40px;
-	font-size: 18px;
-	font-weight: bold;
+.sheet-main-attribute .sheet-tooltip {
+	font-size: 11px;
 }
-.sheet-encumberance .sheet-row-load .sheet-cell { margin-top: 11px; }
-.sheet-encumberance .sheet-row-load input { font-size: 18px; font-weight: bold; }
+.sheet-attribute .sheet-row-perception .sheet-tooltip {
+	font-size: 11px;
+}
+.sheet-attribute .sheet-row-willpower .sheet-tooltip {
+	font-size: 11px;
+}
+.
+.sheet-attribute .sheet-row-basic-speed .sheet-tooltip {
+	font-size: 11px;
+}
+.sheet-attribute .sheet-row-basic-move .sheet-tooltip {
+	font-size: 11px;
+}
+.sheet-attribute .sheet-row-basic-lift .sheet-tooltip {
+	font-size: 11px;
+}
+.sheet-attribute .sheet-row-lift-st .sheet-tooltip {
+	font-size: 11px;
+}
+.sheet-attribute .sheet-row-strike-st .sheet-tooltip {
+	font-size: 11px;
+}
+
+.sheet-stats {
+	width: 209px;
+	display: inline-block;
+	float: none;
+}
+.sheet-stats input {
+border-bottom: 1px solid #c0c0c0;
+}
+.sheet-stats .sheet-header-stats .sheet-col0 {
+	width: 86px;
+	text-align: left;
+	padding-left: 4px;
+}
+.sheet-stats .sheet-header-stats .sheet-col1 {
+	width: 35px;
+	text-align: right;
+	padding-right: 4px;
+}
+.sheet-stats .sheet-header-stats .sheet-col2 {
+	width: 30px;
+	text-align: right;
+}
+.sheet-stats .sheet-header-stats .sheet-col3 {
+	width: 30px;
+	text-align: right;
+	padding-right: 2px;
+	margin-left:2px;
+}
+.sheet-stats .sheet-header-stats .sheet-col4 {
+	width: 22px;
+}
+.sheet-stats .sheet-row .sheet-col0 {
+	width: 86px;
+	padding-left: 2px;
+}
+.sheet-stats .sheet-row .sheet-col0 input {
+	text-align: left;
+}
+.sheet-stats .sheet-row .sheet-col1 {
+	width: 35px;
+	text-align: right;
+	padding-right: 4px;
+}
+.sheet-stats .sheet-row .sheet-col1 input {
+	text-align: right;
+}
+.sheet-stats .sheet-row .sheet-col0 .sheet-tooltip {
+	width: 345px;
+	margin-left: -220px;
+}
+.sheet-stats .sheet-row .sheet-col2 {
+	width: 30px;
+	text-align: right;
+}
+.sheet-stats .sheet-row .sheet-col2 input {
+	text-align: right;
+	padding-right: 8px;
+}
+.sheet-stats .sheet-row .sheet-col3 {
+	width: 30px;
+	text-align: right;
+	padding-right: 2px;
+	margin-left:2px;
+}
+.sheet-stats .sheet-row .sheet-col3 input {
+	text-align: right;
+	padding-right: 8px;
+}
+.sheet-stats .sheet-row .sheet-col4 {
+	width: 22px;
+}
+.sheet-stats .sheet-row-fatigue-points .sheet-col1 {
+	width: 35px;
+	color: #73ab73;
+}
+.sheet-stats .sheet-row-fatigue-points .sheet-col2 input {
+	padding-right: 8px;
+}
+.sheet-stats .sheet-row-current-fatigue-points .sheet-col1 {
+	width: 35px;
+	padding-right: 4px;
+	
+}
+.sheet-stats .sheet-row-current-fatigue-points .sheet-col1 input {
+	color: Green;
+	text-align: right;
+}	
+.sheet-stats .sheet-row-hit-points .sheet-col1 {
+	width: 35px;
+	color: Red;
+	color: #ff8080;
+}
+.sheet-stats .sheet-row-hit-points .sheet-col2 input {
+	padding-right: 8px;
+}
+.sheet-stats .sheet-row-current-hit-points .sheet-col1 {
+	width: 35px;
+	padding-right: 4px;
+}
+.sheet-stats .sheet-row-current-hit-points .sheet-col1 input {
+	color: Red;
+	text-align: right;
+}
+.sheet-stats .sheet-row-current-energy-points .sheet-col1 {
+	width: 35px;
+	padding-right: 4px;
+}
+.sheet-stats .sheet-row-energy-points .sheet-col1 {
+	width: 35px;
+	padding-right: 4px;
+	
+}
+.sheet-stats .sheet-row-energy-points .sheet-col2 input {
+	padding-right: 8px;
+}
+.sheet-stats .sheet-row-current-energy-points .sheet-col1 input {
+	color: #000080;
+	text-align: right;
+}
+.sheet-stats .sheet-row-current-points .sheet-col0 {
+	width: 86px;
+	padding-left: 4px;
+}
+.sheet-stats .sheet-row-current-points .sheet-col0 input {
+	text-align: left;
+}
+.sheet-stats .sheet-row-current-points .sheet-col1 input {
+	text-align: right;
+}
+
+.sheet-stats .sheet-row-checks .sheet-col0 {
+	width: 22px;
+	text-align: left;
+	padding-left: 0px;
+	margin-left: -4px;
+	margin-right: 4px;
+}
+.sheet-stats .sheet-row-checks .sheet-col1 {
+	width: 84px;
+	font-weight: normal;
+	text-align: left;
+}
+.sheet-stats .sheet-row-checks .sheet-col2 {
+	width: 30px;
+	text-align: right;
+	padding-right: 2px;
+}
+.sheet-stats .sheet-row-checks .sheet-col3 {
+	width: 38px;
+	text-align: right;
+	padding-right: 2px;
+	margin-left:2px;
+	margin-right:2px;
+}
+.sheet-stats .sheet-row-checks .sheet-col3 input {
+	text-align: right;
+	padding-right: 8px;
+}
+.sheet-stats .sheet-row-checks .sheet-col4 {
+	width: 40px;
+}
+.sheet-stats .sheet-row-checks .sheet-col4 input {
+	text-align: right;
+	padding-right: 8px;
+}
+.sheet-stats .sheet-row-thresholds .sheet-col0 {
+	width: 86px;
+	padding-left: 2px;
+}
+.sheet-stats .sheet-row-thresholds .sheet-col1 {
+	width: 35px;
+	text-align: right;
+	padding-right: 8px;
+}
+.sheet-stats .sheet-row-thresholds .sheet-tooltip {
+	margin-left: -250px;
+	margin-right: 100px;
+}
+
+.sheet-lifting-new {
+	width: 378px;
+}
+.sheet-lifting-new .sheet-header-lifting-new {
+	text-align: center;
+	color: white;
+}
+.sheet-lifting-new .sheet-header-lifting-new .sheet-col0 {
+	width: 100%;
+}
+.sheet-lifting-new .sheet-header-lifting-new .sheet-col1 {
+	width: 78px;
+}
+.sheet-lifting-new .sheet-header-lifting-new .sheet-col2 {
+	width: 72px;
+}
+.sheet-lifting-new .sheet-header-lifting-new .sheet-col3 {
+	width: 60px;
+}
+.sheet-lifting-new .sheet-header-lifting-new .sheet-col4 {
+	width: 45px;
+}
+.sheet-lifting-new .sheet-row-lifting-none .sheet-col1 {
+	width: 78px;
+	padding-left: 2px;
+	border-right: 1px solid #000000;
+}
+
+.sheet-lifting-new .sheet-row-lifting-none .sheet-col2 {
+	width: 72px;
+	text-align: right;
+	padding-right: 4px;
+	border-right: 1px solid #000000;
+}
+.sheet-lifting-new .sheet-row-lifting-none .sheet-col3 {
+	width: 60px;
+	text-align: right;
+	padding-right: 4px;
+	border-right: 1px solid #000000;
+}
+.sheet-lifting-new .sheet-row-lifting-none .sheet-col4 {
+	width: 45px;
+	text-align: right;
+	padding-right: 4px;
+}
+.sheet-lifting-new .sheet-row-lifting-light .sheet-col1 {
+	width: 78px;
+	padding-left: 2px;
+	border-right: 1px solid #000000;
+}
+
+.sheet-lifting-new .sheet-row-lifting-light .sheet-col2 {
+	width: 72px;
+	text-align: right;
+	padding-right: 4px;
+	border-right: 1px solid #000000;
+}
+
+.sheet-lifting-new .sheet-row-lifting-light .sheet-col3 {
+	width: 60px;
+	text-align: right;
+	padding-right: 4px;
+	border-right: 1px solid #000000;
+}
+.sheet-lifting-new .sheet-row-lifting-light .sheet-col4 {
+	width: 45px;
+	text-align: right;
+	padding-right: 4px;
+}
+.sheet-lifting-new .sheet-row-lifting-medium .sheet-col1 {
+	width: 78px;
+	padding-left: 2px;
+	border-right: 1px solid #000000;
+}
+
+.sheet-lifting-new .sheet-row-lifting-medium .sheet-col2 {
+	width: 72px;
+	text-align: right;
+	padding-right: 4px;
+	border-right: 1px solid #000000;
+}
+.sheet-lifting-new .sheet-row-lifting-medium .sheet-col3 {
+	width: 60px;
+	text-align: right;
+	padding-right: 4px;
+	border-right: 1px solid #000000;
+}
+.sheet-lifting-new .sheet-row-lifting-medium .sheet-col4 {
+	width: 45px;
+	text-align: right;
+	padding-right: 4px;
+}
+.sheet-lifting-new .sheet-row-lifting-heavy .sheet-col1 {
+	width: 78px;
+	padding-left: 2px;
+	border-right: 1px solid #000000;
+}
+
+.sheet-lifting-new .sheet-row-lifting-heavy .sheet-col2 {
+	width: 72px;
+	text-align: right;
+	padding-right: 4px;
+	border-right: 1px solid #000000;
+}
+
+.sheet-lifting-new .sheet-row-lifting-heavy .sheet-col3 {
+	width: 60px;
+	text-align: right;
+	padding-right: 4px;
+	border-right: 1px solid #000000;
+}
+.sheet-lifting-new .sheet-row-lifting-heavy .sheet-col4 {
+	width: 45px;
+	text-align: right;
+	padding-right: 4px;
+}
+.sheet-lifting-new .sheet-row-lifting-xhvy {
+	border-bottom: 1px solid #000000;
+}
+.sheet-lifting-new .sheet-row-lifting-xhvy .sheet-col1 {
+	width: 78px;
+	padding-left: 2px;
+	border-right: 1px solid #000000;
+}
+
+.sheet-lifting-new .sheet-row-lifting-xhvy .sheet-col2 {
+	width: 72px;
+	text-align: right;
+	padding-right: 4px;
+	border-right: 1px solid #000000;
+}
+
+.sheet-lifting-new .sheet-row-lifting-xhvy .sheet-col3 {
+	width: 60px;
+	text-align: right;
+	padding-right: 4px;
+	border-right: 1px solid #000000;
+}
+.sheet-lifting-new .sheet-row-lifting-xhvy .sheet-col4 {
+	width: 45px;
+	text-align: right;
+	padding-right: 4px;
+}
+
+input.sheet-overweight[value="0"] ~ div.sheet-row-lifting-none {
+	background: #fcf2c4;
+}
+input.sheet-overweight[value="1"] ~ div.sheet-row-lifting-light {
+	background: #fcf2c4;
+}
+input.sheet-overweight[value="2"] ~ div.sheet-row-lifting-medium {
+	background: #fcf2c4;
+}
+input.sheet-overweight[value="3"] ~ div.sheet-row-lifting-heavy {
+	background: #fcf2c4;
+}
+input.sheet-overweight[value="4"] ~ div.sheet-row-lifting-xhvy {
+	background: #fcf2c4;
+}
+
+.sheet-lifting-new .sheet-row-current-load .sheet-col0 {
+	width: 90px;
+	padding-left: 2px;
+}
+.sheet-lifting-new .sheet-row-current-load .sheet-col1 {
+	width: calc(100% - 240px);
+	border-right: 1px solid #000000;
+	text-align: right;
+	padding-right: 10px;
+}
+.sheet-lifting-new .sheet-row-current-load .sheet-col2 {
+	width: 130px;
+	padding-left: 2px;	
+}
+.sheet-lifting-new .sheet-row-current-load .sheet-col3 {
+	width: 20px;
+	text-align: center;
+}
+
+.sheet-lifting-new .sheet-header-moving .sheet-col0 {
+	width: 100%;
+}
+
+.sheet-lifting-new .sheet-row-moving .sheet-col0 {
+	width: 52%;
+	padding-left: 2px;
+}
+.sheet-lifting-new .sheet-row-moving .sheet-col1 {
+	width: 48%;
+	text-align: right;
+	padding-right: 10px;	
+}
+
+.sheet-lifting-new .sheet-header-jump .sheet-col0 {
+	width: 100%;
+}
+.sheet-lifting-new .sheet-header-jump .sheet-tooltip {
+	margin-top: -100px;
+}
+.sheet-lifting-new .sheet-row-jump .sheet-tooltip {
+	margin-top: -120px;
+}
+.sheet-lifting-new .sheet-row-jump .sheet-col0 {
+	width: 48px;
+	margin-left: 2px;
+}
+.sheet-lifting-new .sheet-row-jump .sheet-col1 {
+	width: 45px;
+	padding-left: 1px;
+	padding-right: 1px;
+}
+.sheet-lifting-new .sheet-row-jump .sheet-col1 input {
+	border-bottom: 1px solid #c0c0c0;
+}
 
 
-
-
-
-.sheet-options .sheet-box {
-    margin: 10px;
-    padding: 2px;
+.sheet-lifting-new .sheet-row-jump .sheet-col2 {
+	width: 49px;
+	padding-left: 1px;
+	padding-right: 1px;
+}
+.sheet-lifting-new .sheet-row-jump .sheet-col2 input {
+	border-bottom: 1px solid #c0c0c0;
+}
+.sheet-lifting-new .sheet-row-jump .sheet-col3 {
+	width: 43px;
+	padding-left: 1px;
+	padding-right: 1px;
+}
+.sheet-lifting-new .sheet-row-jump .sheet-col3 input {
+	border-bottom: 1px solid #c0c0c0;
 }
 
 /* -- TRAITS -- */
-.sheet-language { width: calc(60% - 0.4em); }
-.sheet-language .sheet-col0 { width: calc(100% - 210px); }
-.sheet-language .sheet-col0 input { text-align:left; }
-.sheet-language .sheet-col1 { width: 90px; }
-.sheet-language .sheet-col2 { width: 90px; }
-.sheet-language .sheet-col3 { width: 30px; }
 
-
-.sheet-culture  { width: calc(40% - 0.4em); }
-.sheet-culture .sheet-col0 { width: calc(100% - 30px); }
-.sheet-culture .sheet-col0 input { text-align:left; }
-.sheet-culture .sheet-col1 { width: 30px; }
-
-.sheet-tech { width: calc(60% - 0.4em); }
-.sheet-tech .sheet-col0 { width: calc(100% - 210px); }
-.sheet-tech .sheet-col1 { width: 30px; margin-left: 180px;}
-
-.sheet-appearance { width: calc(40% - 0.4em); }
-.sheet-appearance .sheet-col0 { width: calc(100% - 30px); }
-.sheet-appearance .sheet-col1 { width: 30px; }
-
-
-
-.sheet-traits { width: calc(100% - 0.4em); }
-.sheet-traits .sheet-col0 { width: calc(100% - 120px); }
-.sheet-traits .sheet-col0 input { text-align:left; }
-.sheet-traits .sheet-col1 { width: 30px; }
-.sheet-traits .sheet-col1 input { text-align:left; }
-.sheet-traits .sheet-col2 { width: 30px; }
-.sheet-traits .sheet-col3 { width: 60px; }
-.sheet-traits .sheet-row-stats .sheet-col00 { margin-left: 20px; width: 22px; }
-.sheet-traits .sheet-row-stats .sheet-col0 { width: calc(100% - 162px); }
-
-.sheet-disadvantages { width: calc(100% - 0.4em); }
-.sheet-disadvantages .sheet-col0 { width: calc(100% - 120px); }
-.sheet-disadvantages .sheet-col0 input { text-align:left; }
-.sheet-disadvantages .sheet-col1 { width: 30px; }
-.sheet-disadvantages .sheet-col1 input { text-align:left; }
-.sheet-disadvantages .sheet-col2 { width: 30px; }
-.sheet-disadvantages .sheet-col3 { width: 60px; }
-.sheet-disadvantages .sheet-row-stats .sheet-col00 { margin-left: 20px; width: 22px; }
-.sheet-disadvantages .sheet-row-stats .sheet-col0 { width: calc(100% - 162px); }
-
-.sheet-racial { width: calc(100% - 0.4em); }
-.sheet-racial .sheet-col0 { width: calc(100% - 120px); }
-.sheet-racial .sheet-col0 input { text-align:left; }
-.sheet-racial .sheet-col1 { width: 30px; }
-.sheet-racial .sheet-col1 input { text-align:left; }
-.sheet-racial .sheet-col2 { width: 30px; }
-.sheet-racial .sheet-col3 { width: 60px; }
-.sheet-racial .sheet-row-stats .sheet-col00 { margin-left: 20px; width: 22px; }
-.sheet-racial .sheet-row-stats .sheet-col0 { width: calc(100% - 162px); }
-
-
+.sheet-traits {
+	width: 98.9%;
+}
+.sheet-traits .sheet-header .sheet-col0 {
+	width: calc(100% - 200px);
+	border-right: 1px solid #c0c0c0;
+	margin-left: 40px;
+}
+.sheet-traits .sheet-header .sheet-col1 {
+	width: 40px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-traits .sheet-header .sheet-col2 {
+	width: 40px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-traits .sheet-header .sheet-col3 {
+	width: 80px;
+}
+.sheet-traits .sheet-row-stats {
+	border-bottom: 1px solid #c0c0c0;
+}
+.sheet-traits .sheet-row-stats .sheet-col0 {
+	width: 24px;
+    margin-left: 16px;
+    border-left: 1px solid #c0c0c0;
+}
+.sheet-traits .sheet-row-stats .sheet-col1 input {
+	text-align: left;
+}
+.sheet-traits .sheet-row-stats .sheet-col1 {
+	width: calc(100% - 200px);
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-traits .sheet-row-stats .sheet-col2 {
+	width: 40px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-traits .sheet-row-stats .sheet-col2 input {
+	text-align: right;
+	padding-right: 6px;
+}
+.sheet-traits .sheet-row-stats .sheet-col3 {
+	width: 40px;
+	border-right: 1px solid #c0c0c0;
+	}
+.sheet-traits .sheet-row-stats .sheet-col3 input {
+	text-align: right;
+	padding-right: 6px;
+}
+.sheet-traits .sheet-row-stats .sheet-col4 {
+	width: 80px;
+}
+.sheet-traits .sheet-row-stats .sheet-col4 input {
+	text-align: left;
+	padding-left: 6px;
+}
+.sheet-traits .sheet-row-details {
+	height: inherit;
+	overflow: auto;
+}
+.sheet-traits .sheet-row-details .sheet-col1 textarea {
+	text-align: left;
+	width: 100%;
+	  height: 44px;
+	  padding: 4px;
+	  box-sizing: border-box;
+	  background-color: transparent;
+	  font-size: 12px;
+	  resize: vertical;
+	  min-height: 44px;
+}
+.sheet-traits .sheet-row-details-rowid {
+	height: 14px;
+	font-size: 10px;
+}
+.sheet-traits .sheet-row-details-rowid input {
+	height: 14px;
+    font-size: 10px;
+    padding-bottom: 4px;
+}
+.sheet-traits .sheet-row-details-rowid .sheet-col2 {
+	width: 120px;
+    margin-left: 40px;
+}
+.sheet-traits .sheet-row-details-rowid .sheet-col3 {
+	width: 160px;
+}
+	
+}
 /* -- SKILLS -- */
-.sheet-skills { width: calc(100% - 0.4em); }
-.sheet-skills .sheet-col0 { width: calc(100% - 307px); }
-.sheet-skills .sheet-col0 input { text-align:left; }
-.sheet-skills .sheet-col1 { width: 30px; }
-.sheet-skills .sheet-col2 { width: 40px; }
-.sheet-skills .sheet-col3 { width: 55px; }
-.sheet-skills .sheet-col4 { width: 50px; }
-.sheet-skills .sheet-col5 { width: 40px; }
-.sheet-skills .sheet-col6 { width: 30px; }
-.sheet-skills .sheet-col7 { width: 40px; }
-.sheet-skills .sheet-col8 { width: 22px; }
-.sheet-skills .sheet-row-stats .sheet-col0 { width: calc(100% - 327px); }
-.sheet-skills .sheet-row-stats .sheet-col8 { margin-left: 20px; width: 22px;}
-.sheet-skills .sheet-row-details input { text-align:left;}
 
-.sheet-techniques { width: calc(100% - 0.4em); }
-.sheet-techniques .sheet-col0 { width: calc((100% - 240px) * 0.55); }
-.sheet-techniques .sheet-col0 input { text-align:left; }
-.sheet-techniques .sheet-col1 { width: calc((100% - 282px) * 0.45); }
-.sheet-techniques .sheet-col1 input { text-align:left; }
-.sheet-techniques .sheet-col2 { width: 30px; }
-.sheet-techniques .sheet-col3 { width: 30px; }
-.sheet-techniques .sheet-col4 { width: 40px; }
-.sheet-techniques .sheet-col5 { width: 30px; }
-.sheet-techniques .sheet-col6 { width: 40px; margin-left: 8px;}
-.sheet-techniques .sheet-col7 { width: 30px; margin-left: 8px;}
-.sheet-techniques .sheet-col8 { width: 32px; margin-left: 8px;}
-.sheet-techniques .sheet-row-stats .sheet-col0 { width: calc((100% - 282px) * 0.55 - 20px); }
-.sheet-techniques .sheet-row-stats .sheet-col9 { margin-left: 20px; width: 22px;}
+.sheet-skills {
+	width: calc(100% - 0.4em);
+}
 
-/* -- COMBAT -- */
-.sheet-active-defense { width: 100%; }
-.sheet-active-defense .sheet-header .sheet-col0 { width: calc(100% - 172px); }
-.sheet-active-defense .sheet-col0 { width: calc(100% - 192px); }
-.sheet-active-defense .sheet-col0 input { text-align:left; }
-.sheet-active-defense .sheet-col1 { width: 80px; text-align:center; }
-.sheet-active-defense .sheet-col2 { width: 40px; }
-.sheet-active-defense .sheet-col3 { width: 30px; }
-.sheet-active-defense .sheet-col4 { width: 22px; }
+.sheet-skills .sheet-header-skills .sheet-col0 {
+	width: 434px;
+	margin-left: 40px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-skills .sheet-header-skills .sheet-col1 {
+	width: calc((100% - 555px) * 0.2);
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-skills .sheet-header-skills .sheet-col2 {
+	width: 78px;
+}
+.sheet-skills .sheet-row-skills {
+	border-bottom: 1px solid #c0c0c0;
+}
+.sheet-skills .sheet-row-skills .sheet-col0 {
+	width: 24px;
+    margin-left: 16px;
+    border-left: 1px solid #c0c0c0;
+}
+.sheet-skills .sheet-row-skills .sheet-col1 {
+	width: 434px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-skills .sheet-row-skills .sheet-col1 input {
+	text-align: left;
+}
+.sheet-skills .sheet-row-skills .sheet-col2 {
+	width: calc((100% - 555px) * 0.2);
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-skills .sheet-row-skills .sheet-col3 {
+	width: 80px;
+}
+.sheet-skills .sheet-row-details input {
+	text-align: left;
+}
+.sheet-skills .sheet-header-techniques .sheet-col0 {
+	width: 201px;
+	border-right: 1px solid #c0c0c0;
+	margin-left: 40px;
+}
+.sheet-skills .sheet-header-techniques .sheet-col1 {
+	width: 200px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-skills .sheet-header-techniques .sheet-col2 {
+	width: 52px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-skills .sheet-header-techniques .sheet-col3 {
+	width: 80px;
+}
+.sheet-skills .sheet-row-techniques {
+	border-bottom: 1px solid #c0c0c0;
+	
+}
+.sheet-skills .sheet-row-techniques .sheet-col0 {
+	width: 24px;
+    margin-left: 16px;
+    border-left: 1px solid #c0c0c0;
+}
+.sheet-skills .sheet-row-techniques .sheet-col0 input {
+	text-align: left;
+}
+.sheet-skills .sheet-row-techniques .sheet-col1 {
+	width: 201px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-skills .sheet-row-techniques .sheet-col1 input {
+	text-align: left;
+}
+.sheet-skills .sheet-row-techniques .sheet-col2 {
+	width: 200px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-skills .sheet-row-techniques .sheet-col2 input {
+	text-align: left;
+}
+.sheet-skills .sheet-row-techniques .sheet-col3 {
+	width: 52px;
+	border-right: 1px solid #c0c0c0;
+	text-align: center;
+}
+.sheet-skills .sheet-row-techniques .sheet-col4 {
+	width: 80px;
+}
+.sheet-skills .sheet-row-details {
+	min-height: 44px;
+	overflow: auto;
+}
+.sheet-skills .sheet-row-details .sheet-col0 {
+	width: 40px;
+	height: 44px;
+    /* border-right: 1px solid #c0c0c0; */
+    float: left;
+}
+.sheet-skills .sheet-row-details .sheet-col0 .sheet-tooltip {
+	margin-left: 10px;
+    margin-top: -22px;
+}
+.sheet-skills .sheet-row-details .sheet-col1 {
+	width: calc(100% - 40px);
+    display: inline-block;
+    float: right;
+}
+.sheet-skills .sheet-row-details .sheet-col1 input {
+	text-align: left;
+}
+.sheet-skills .sheet-row-details-rowid {
+	height: 14px;
+	font-size: 10px;
+}
+.sheet-skills .sheet-row-details-rowid input {
+	height: 14px;
+    font-size: 10px;
+    padding-bottom: 4px;
+}
+.sheet-skills .sheet-row-details-rowid .sheet-col2 {
+	width: 120px;
+    margin-left: 40px;
+}
+.sheet-skills .sheet-row-details-rowid .sheet-col3 {
+	width: 160px;
+}
 
-.sheet-melee-attacks { width: 100%; }
-.sheet-melee-attacks .sheet-header .sheet-col0 { width: calc(100% - 272px );} /* Weapon Name */
-.sheet-melee-attacks .sheet-header .sheet-col1 { width: 100px;} /* Reach */
-.sheet-melee-attacks .sheet-header .sheet-col2 { width: 60px;} /* Damage */
-.sheet-melee-attacks .sheet-header .sheet-col3 { width: 60px;} /* Type */
-.sheet-melee-attacks .sheet-header .sheet-col4 { width: 52px; } /* Skill */
+/* ========================== COMBAT TAB =================================*/
 
-.sheet-melee-attacks .sheet-row-stats .sheet-col0 { width: calc(100% - 310px); } /* Weapon Name */
-.sheet-melee-attacks .sheet-row-stats .sheet-col0 input { text-align:left; }
-.sheet-melee-attacks .sheet-row-stats .sheet-col1 { width: 100px; } /* Reach */
-.sheet-melee-attacks .sheet-row-stats .sheet-col2 { width: 60px; } /* Damage */
-.sheet-melee-attacks .sheet-row-stats .sheet-col3 { width: 60px; } /* Type */
-.sheet-melee-attacks .sheet-row-stats .sheet-col4 { width: 52px;} /* Skill */
-.sheet-melee-attacks .sheet-row-stats .sheet-col6 { width: 22px; margin-left: 16px;} /* Roll Button */
+/* =========================MANUEVER SECTION ======================= */
+
+.sheet-combat {
+	width: calc(100% - 0.4em);
+}
+	
+.sheet-combat .sheet-header-perm-modifiers .sheet-col0 {
+	width:100%;
+}
+.sheet-combat .sheet-header-perm-modifiers .sheet-col0 .sheet-tooltip {
+	margin-left: -110px;
+    margin-top: -110px;
+}
+.sheet-combat .sheet-header-perm-modifiers .sheet-col0-0 {
+	width: 108px;
+	text-align:right;
+	margin-left: calc((100% - 515px) * 0.5);
+}
+.sheet-combat .sheet-header-perm-modifiers .sheet-col0-0 .sheet-tooltip {
+	margin-left: -220px;
+}
+.sheet-combat .sheet-header-perm-modifiers .sheet-col0-1 {
+	width: 22px;
+}
+.sheet-combat .sheet-header-perm-modifiers .sheet-col0-2 {
+	width: 125px;
+	text-align:right;
+}
+.sheet-combat .sheet-header-perm-modifiers .sheet-col0-3 {
+	width: 22px;
+}
+.sheet-combat .sheet-header-perm-modifiers .sheet-col0-4 {
+	width: 102px;
+	text-align:right;
+}
+.sheet-combat .sheet-header-perm-modifiers .sheet-col0-4 .sheet-tooltip {
+	margin-left: -110px;
+}
+.sheet-combat .sheet-header-perm-modifiers .sheet-col0-5 {
+	width: 22px;
+}
+.sheet-combat .sheet-header-perm-modifiers .sheet-col0-6 {
+	width: 92px;
+}
+.sheet-combat .sheet-header-perm-modifiers .sheet-col0-6 .sheet-tooltip {
+	margin-left:0px;
+}
+.sheet-combat .sheet-header-perm-modifiers .sheet-col0-7 {
+	width: 22px;
+}
+
+.charsheet div[class^="sheet-manuevergroup"] {
+  display: none;
+}
+/*this shows the race traits content when the appropriate input field is selected*/
+.charsheet input.sheet-man1:checked ~ div.sheet-manuevergroup-basic,
+.charsheet input.sheet-man2:checked ~ div.sheet-manuevergroup-expanded {
+  display: block;
+}
+/*this hides the button*/
+.charsheet input.sheet-manueverbutton {
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+  display: none;
+}
+
+.sheet-combat .sheet-manuever-header .sheet-col0 {
+	width: 300px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-combat .sheet-manuever-header .sheet-col1 {
+	width: 150px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-combat .sheet-manuever-header .sheet-col2 {
+	width: 100px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-combat .sheet-manuever-header .sheet-col3 {
+	width: calc(100% - 550px);
+	border-right: 1px solid #c0c0c0;
+}
+
+.sheet-combat .sheet-row-manuever .sheet-col0 {
+	width: 300px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-combat .sheet-row-manuever .sheet-col1 {
+	width: 150px;
+	text-align: center;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-combat .sheet-row-manuever .sheet-col2 {
+	width: 100px;
+	text-align: center;
+	border-right: 1px solid #c0c0c0;
+}
+
+.sheet-combat .sheet-row-manuever .sheet-col3 {
+	width: calc(100% - 550px);
+	padding-left: 4px;
+}
+.sheet-combat .sheet-row-manuever2 {
+	height: min-content;
+    overflow: auto;
+	border-top: 2px solid #c0c0c0;
+}
+
+.sheet-combat .sheet-row-manuever2 .sheet-col0 {
+	width: 100%;
+	text-align: left;
+	padding-left: 6px;
+	
+}
+.sheet-status-box {
+	width: calc(100% - 0.4em);
+}
+.sheet-status-box .sheet-subheader-status {
+	width: 100%;
+}
+
+/*============ DEFENSE ================= */
+.sheet-box-active-defense {
+	width: calc(100% - 0.4em);
+}
+.sheet-box-active-defense .sheet-header-active-defense .sheet-col0 {
+	width: calc(100% - 280px);
+	text-align: center;
+	border-right: 1px solid #c0c0c0;
+	margin-left: 40px;
+}
+.sheet-box-active-defense .sheet-header-active-defense .sheet-col1 {
+	width: 100px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-active-defense .sheet-header-active-defense .sheet-col2 {
+	width: 60px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-active-defense .sheet-header-active-defense .sheet-col3 {
+	width: 40px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-active-defense .sheet-header-active-defense .sheet-col4 {
+	width: 40px;
+}
+.sheet-box-active-defense .sheet-header-active-defense .sheet-col4 .sheet-tooltip {
+	margin-left: -110px;
+}
+.sheet-box-active-defense .sheet-row-active-defense {
+	border-bottom: 1px solid #c0c0c0;
+}
+.sheet-dodge {
+	background-color: #e8ffe8;
+}
+.sheet-box-active-defense .sheet-row-active-defense .sheet-col0 {
+	width: 24px;
+    margin-left: 16px;
+    border-left: 1px solid #c0c0c0;
+}
+.sheet-box-active-defense .sheet-row-active-defense .sheet-col1 {
+	width: calc(100% - 280px);
+	border-right: 1px solid #c0c0c0;
+	padding-left: 2px;
+	font-weight: bold;
+}
+.sheet-box-active-defense .sheet-row-active-defense .sheet-col1 input {
+	text-align: left;
+}
+.sheet-box-active-defense .sheet-row-active-defense .sheet-col2 {
+	width: 100px;
+	border-right: 1px solid #c0c0c0;
+	text-align: center;
+	font-weight: bold;
+}
+.sheet-box-active-defense .sheet-row-active-defense .sheet-col3 {
+	width: 60px;
+	text-align: center;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-active-defense .sheet-row-active-defense .sheet-col4 {
+	width: 40px;
+	text-align: center;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-active-defense .sheet-row-active-defense .sheet-col5 {
+	width: 40px;
+	text-align: center;	
+}
+.sheet-box-active-defense .sheet-row-details {
+	overflow: auto;
+}
+.sheet-box-active-defense .sheet-row-details .sheet-col0 {
+	width: 40px;
+	height: 44px;
+    /* border-right: 1px solid #c0c0c0; */
+    float: left;
+}
+.sheet-box-active-defense .sheet-row-details .sheet-col0 .sheet-tooltip {
+	margin-left: 10px;
+    margin-top: -22px;
+}
+.sheet-box-active-defense .sheet-row-details .sheet-col1 {
+	width: calc(100% - 40px);
+    display: inline-block;
+    float: right;
+}
+.sheet-box-active-defense .sheet-row-details .sheet-col1 input {
+	text-align: left;
+}
+.sheet-box-active-defense .sheet-row-details-rowid {
+	height: 14px;
+	font-size: 10px;
+}
+.sheet-box-active-defense .sheet-row-details-rowid input {
+	height: 14px;
+    font-size: 10px;
+    padding-bottom: 4px;
+}
+.sheet-box-active-defense .sheet-row-details-rowid .sheet-col2 {
+	width: 120px;
+    margin-left: 40px;
+}
+.sheet-box-active-defense .sheet-row-details-rowid .sheet-col3 {
+	width: 160px;
+}
+/* ======= MOVE AD MODIFIERS TO HERE =============== */
+.sheet-AD-modifiers {
+	width: calc(100% - 0.4em);
+}
+.sheet-AD-modifiers .sheet-header-AD-modifiers {
+	background-color: #FFA500;
+	color: #000000;
+}
+.sheet-AD-modifiers .sheet-header-AD-modifiers .sheet-col0 {
+	width: 188px;
+	margin-left: calc((100% - 218px) * 0.5);
+	}
+.sheet-AD-modifiers .sheet-header-AD-modifiers .sheet-col1 {
+	width: 30px;
+	color: #303030;
+	font-weight: bold;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers {
+	border-top: 2px solid #c0c0c0;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col0-0 {
+	width: 56px;
+	margin-left: 30px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col0-1 {
+	width: 22px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col0-2 {
+	width: 75px;
+    padding-left: 4px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col0-3 {
+	width: 22px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col0-4 {
+	width: 50px;
+	text-align: right;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col0-5 {
+	width: 22px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col0-6 {
+	width: 100px;
+    text-align: right;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col0-7 {
+	width: 145px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col0-8 {
+	width: 60px;
+    text-align: right;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col0-9 {
+	width: 30px;
+}
 
 
-.sheet-ranged-attacks { width: 100%; }
-.sheet-ranged-attacks .sheet-header .sheet-col0 { width: calc(100% - 517px); } /* Weapon Name */
-.sheet-ranged-attacks .sheet-header .sheet-col1 { width: 100px; } /* Range */
-.sheet-ranged-attacks .sheet-header .sheet-col2 { width: 30px; } /* Acc */
-.sheet-ranged-attacks .sheet-header .sheet-col3 { width: 45px; } /* Rof */
-.sheet-ranged-attacks .sheet-header .sheet-col4 { width: 60px; } /* Shots */
-.sheet-ranged-attacks .sheet-header .sheet-col5 { width: 30px; } /* ST */
-.sheet-ranged-attacks .sheet-header .sheet-col6 { width: 40px; } /* Bulk */
-.sheet-ranged-attacks .sheet-header .sheet-col7 { width: 40px; } /* Recoil */
-.sheet-ranged-attacks .sheet-header .sheet-col8 { width: 60px; } /* Damage */
-.sheet-ranged-attacks .sheet-header .sheet-col9 { width: 60px; } /* Type */
-.sheet-ranged-attacks .sheet-header .sheet-col10 { width: 52px; } /* Skill */
 
-.sheet-ranged-attacks .sheet-row-stats .sheet-col0 { width: calc(100% - 555px); } /* Weapon Name */
-.sheet-ranged-attacks .sheet-row-stats .sheet-col0 input { text-align:left; } /* Weapon Name */
-.sheet-ranged-attacks .sheet-row-stats .sheet-col1 { width: 100px; } /* Range */
-.sheet-ranged-attacks .sheet-row-stats .sheet-col2 { width: 30px; } /* Acc */
-.sheet-ranged-attacks .sheet-row-stats .sheet-col3 { width: 45px; } /* Rof */
-.sheet-ranged-attacks .sheet-row-stats .sheet-col4 { width: 60px; } /* Shots */
-.sheet-ranged-attacks .sheet-row-stats .sheet-col5 { width: 30px; } /* ST */
-.sheet-ranged-attacks .sheet-row-stats .sheet-col6 { width: 40px; } /* Bulk */
-.sheet-ranged-attacks .sheet-row-stats .sheet-col7 { width: 40px; } /* Recoil */
-.sheet-ranged-attacks .sheet-row-stats .sheet-col8 { width: 60px; } /* Damage */
-.sheet-ranged-attacks .sheet-row-stats .sheet-col9 { width: 60px; } /* Type */
-.sheet-ranged-attacks .sheet-row-stats .sheet-col10 { width: 52px; } /* Skill */
-.sheet-ranged-attacks .sheet-row-stats .sheet-col11 { width: 22px; margin-left: 16px;} /* Roll Button */
-.sheet-ranged-attacks .sheet-row-details input { text-align:left;}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col1 {
+	width: 22px;
+	padding: 4px;
+	margin-top: -4px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col3 {
+	width: 45px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col4 {
+	width: 105px;
+	padding-left:4px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col5 {
+	width: 150px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col6 {
+	width: 172px;
+	padding-left:4px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col6 .sheet-tooltip {
+	margin-top: -62px;
+	margin-left: 0px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col7 {
+	width: 30px;
+}
 
-/* -------DAMAGE RESISTANCE BOX------------*/
-.sheet-damage-reduction { float: Left; width: 140px; }
-.sheet-damage-reduction .sheet-col0 { width: 45px; } /* LABEL */
-.sheet-damage-reduction .sheet-col1 { width: 30px; text-align: right; } /* Split DR LEFT */
-.sheet-damage-reduction .sheet-col2 { width: 5px; } /* Split DR SLASH */
-.sheet-damage-reduction .sheet-col3 { width: 30px; } /* Split DR RIGHT */
-.sheet-damage-reduction .sheet-col4 { width: 30px; } /* DB Defense Bonus */
-.sheet-damage-reduction .sheet-row-title .sheet-col0 { width: 100%; }
-.sheet-damage-reduction .sheet-header .sheet-col1 { width: 65px; text-align:center;} /* Split DR Header */
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col2-0 {
+	width: 100px;
+	padding-left: 4px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col2-1 {
+	width: 48px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col2-2 {
+	width: 67px;
+	padding-left: 2px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col2-3 {
+	width: calc(100% - 648px);
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col2-4 {
+	width: 75px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col2-5 {
+	width: 30px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col2-6 {
+	width: 115px;
+    padding-left: 2px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col2-7 {
+	width: 22px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col2-8 {
+	width: 60px;
+    padding-left: 2px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col2-9 {
+	width: 30px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col2-10 {
+	width: 67px;
+    text-align:right;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col2-11 {
+	width: 12px;
+	padding-left: 4px;
+}
 
-.sheet-DRLoadout { float: Left; width: 142px; }
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col3-0 {
+	width: 108px;
+	margin-left: calc((100% - 751px) * 0.5);
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col3-1 {
+	width: 22px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col3-2 {
+	width: 28px;
+	padding-left: 2px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col3-3 {
+	width: 22px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col3-4 {
+	padding-left: 2px;
+    width: 26px;
+	border-right: 1px solid #c0c0c0;
+}
+input.sheet-acroOnOff:not([value='1']) ~ div.sheet-acroOn {
+	display: none;
+}
+/* =========== Turned On ================ */
+input.sheet-acroOnOff:not([value='0']) ~ div.sheet-acroOff {
+	display: none;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col3-5 {
+	width: 107px;
+    padding-left: 2px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col3-6 {
+	width: 22px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col3-7 {
+	width: 114px;
+    padding-left: 2px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col3-8 {
+	width: 22px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col3-9 {
+	width: 100px;
+    padding-left: 2px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col3-10 {
+	width: 22px;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col3-11 {
+	width: 112px;
+    padding-left: 2px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-AD-modifiers .sheet-row-AD-modifiers .sheet-col3-12 {
+	width: 22px;
+}
+/* ======= END AD MODIFIERS =============== */
 
-/* ==================DAMAGE CONTROL BOX===============*/
-.sheet-DamageControl { width: calc(100: - 145px - 0.8em); }
+/* =========================================== DEFENSE WOUNDS BOX ====================================== */
 
+.sheet-damageresist-box {
+	width: 258px;
+	overflow-x: hidden;
+}
+.sheet-damageresist-box .sheet-header .sheet-col0 {
+	width:100%;
+}
+/* Nested Sheet-box */
+input.sheet-damageresist-box {
+	width: 12px;
+	height: 12px;
+	position: absolute;
+	margin: 5px;
+	z-index: 1;
+}
+span.sheet-damageresist {
+	display: none;
+	width: 100%;
+}
+input.sheet-drchoice_a {
+	z-index: 2;
+}
+input.sheet-drchoice_a:checked + input.sheet-drchoice_b,
+input.sheet-drchoice_b:checked + input.sheet-drchoice_c {
+	z-index: 3;
+}
+input.sheet-drchoice_a:checked ~ span.sheet-drchoice_a,
+input.sheet-drchoice_b:checked ~ span.sheet-drchoice_b,
+input.sheet-drchoice_c:checked ~ span.sheet-drchoice_c {
+	display: inline-block;
+}
+.sheet-damageresist-box .sheet-row-loadoutname .sheet-col0 {
+	width: calc(100% - 22px);
+	margin-left: 22px;
+}
+.sheet-damageresist-box .sheet-row-loadoutname .sheet-col0 input {
+	height: 20px;
+	margin-top: -2px;
+	padding: 0 2px;
+	line-height: 22px;
+	text-align: center;
+	background: transparent;
+	border: none;
+	box-shadow: none;
+	cursor: initial;
+}
+.sheet-damageresist-box .sheet-subheader {
+	background-color: black;
+	padding-top: 4px;
+    height: 24px;
+    color: white;
+}
+.sheet-damageresist-box .sheet-subheader .sheet-col0 {
+	width: 48px;
+	text-align: center;
+}
+.sheet-damageresist-box .sheet-subheader .sheet-col1 {
+	width: 120px;
+	text-align: center;
+}
+.sheet-damageresist-box .sheet-subheader .sheet-col2 {
+	width: 26px;
+	text-align: center;
+}
+.sheet-damageresist-box .sheet-subheader .sheet-col3 {
+	width: 60px;
+	text-align: center;
+}
+.sheet-damageresist-box .sheet-row-DR .sheet-col0 {
+	width: 48px;
+    text-align: center;
+    border-right: 1px solid black;
+}
+.sheet-damageresist-box .sheet-row-DR .sheet-col1 {
+	width: 120px;
+	text-align: center;
+	border-right: 1px solid black;
+}
+.sheet-damageresist-box .sheet-row-DR .sheet-col2 {
+	width: 26px;
+	text-align: center;
+	border-right: 1px solid black;
+}
+.sheet-damageresist-box .sheet-row-DR .sheet-col3a {
+	width: 30px;
+}
+.sheet-damageresist-box .sheet-row-DR .sheet-col3a input {
+	text-align: right;
+}
+.sheet-damageresist-box .sheet-row-DR .sheet-col3b {
+	width: 30px;
+}
+.sheet-damageresist-box .sheet-row-DR .sheet-col3b input {
+	text-align: left;
+}
 
-/* -------MODIFIERS BOX------------*/
-.sheet-combat-modifiers { width: calc(100% - 145px - 0.8em); }
-.sheet-combat-modifiers .sheet-subheader {font-weight: bold; text-align: center;}
-/* ==============Sheet Input Row 0 colx======================*/
-.sheet-combat-modifiers .sheet-header .sheet-col0 { width: 100%; text-align: center;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col0 { width: 100%; text-align: center;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col0 input { font-size: 20px; color: #990000; font-weight: bold; }
-/* ==============Sheet Input Row 10 col1x======================*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col10 { width: 109px; padding-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col11 { width: 100px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col12 { width: 142px; padding-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col13 { width: 142px; padding-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col14 { width: 120px; padding-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col15 { width: 54px; }
-.sheet-combat-modifiers .sheet-inputs .sheet-col16 { width: 36px; padding-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col17 { width: 20px; margin-right: 70px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col18 { width: 66px; padding-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col19 { width: 20px; margin-right: 66px;}
-/* ==============Sheet Input Row 20 col2x=======================*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col22 { width: 122px; padding-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col23 { width: 30px; margin-right: 65px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col24 { width: 142px; padding-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col25 { width: 30px; margin-right: 45px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col26 { width: 106px; padding-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col27 { width: 30px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col28 { width: 60px; margin-left: 8px; }
-.sheet-combat-modifiers .sheet-inputs .sheet-col29 { width: 84px; margin-right: 8px; }
-/* ==============Sheet Input Row 30 col3x=======================*/
-.sheet-combat-modifiers .sheet-header .sheet-col9 { width: 100%; text-align: center;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col30 { width: 116px; }
-.sheet-combat-modifiers .sheet-inputs .sheet-col31 { width: 40px; }
-.sheet-combat-modifiers .sheet-inputs .sheet-col32 { width: 70px; }
-.sheet-combat-modifiers .sheet-inputs .sheet-col33 { width: 52px; margin-left: 30px; }
-.sheet-combat-modifiers .sheet-inputs .sheet-col34 { width: 40px; margin-left: 12px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col35 { width: 90px; }
-/* ==============Sheet Input Row 40 col4x=======================*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col41 { width: 90px; padding-left: 8px;} /*TGT Size*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col42 { width: 130px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col43 { width: 90px; padding-left: 8px;} /*TGT Range*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col44 { width: 130px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col45 { width: 90px; padding-left: 8px;} /*TGT Speed*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col46 { width: 130px;}
-/* ==============Sheet Input Row 50 col5x=======================*/
-.sheet-combat-modifiers .sheet-header .sheet-col50 { width: 100%; text-align: center;}
-/* ==============Sheet Input Row 60 col6x=======================*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col60 { width: 108px; margin-left: 10px;} /*--Target Hit Location text--*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col61 { width: 103px; } /*--Target Hit Location drop-down--*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col62 { width: 83px; margin-left: 8px;}  /*--Target Posture text--*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col63 { width: 83px; }  /*--Target Posture drop-down--*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col64 { width: 168px; margin-left: 52px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col65 { width: 38px; }
-/* ==============Sheet Input Row 70 ===========================*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col70 { width: 22px; padding-left: 8px; margin-left: 239px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col71 { width: 64px; }
-.sheet-combat-modifiers .sheet-inputs .sheet-col72 { width: 22px; padding-left: 8px; margin-left: 10px; }
-.sheet-combat-modifiers .sheet-inputs .sheet-col73 { width: 83px; }
-/* ==============Sheet Input Row 80 ===========================*/
-.sheet-combat-modifiers .sheet-header .sheet-col80 { width: 100%; text-align: center;}
-/* ==============Sheet Input Row 90 ===========================*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col90 { width: 302px;  margin-left: 10px; text-align: center;} /*--Manuever text--*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col91 { width: 158px;  margin-left: 10px; text-align: center;} /*--Manuever text--*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col92 { width: 158px;  margin-left: 10px; text-align: center;} /*--Manuever text--*/
-/* ==============Sheet Input Row 100 ===========================*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col100 { width: 302px;  margin-left: 10px;} /*--Maneuver drop-down--*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col101 { width: 158px;  margin-left: 10px; text-align: center;} /*--Manuever text--*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col102 { width: 158px;  margin-left: 10px; text-align: center;} /*--Manuever text--*/
-/* ==============Sheet Input Row 110 ===========================*/
-.sheet-maneuverdescription .sheet-row { height: 76px;}
-.sheet-maneuverdescription .sheet-row .sheet-col110 { width: calc(100% - 0.4em); height:66px;}
-.sheet-maneuverdescription .sheet-row .sheet-col110 textarea { width: calc(100% - 0.4em); height: 66px; resize: none;}
-/* ==============Sheet Input Row 200 ===========================*/
-.sheet-combat-modifiers .sheet-header .sheet-col200 { width: 100%; text-align: center;}
+.sheet-shield {
+	width: calc(100% - 262px - 0.4em);
+	overflow-y: hidden;
+}
+.sheet-shield .sheet-header-shield .sheet-col0 {
+	width: calc(100% - 275px);
+}
+.sheet-shield .sheet-header-shield .sheet-col1 {
+	width: 30px;
+}
+.sheet-shield .sheet-header-shield .sheet-col2 {
+	width: 120px;
+}
+.sheet-shield .sheet-header-shield .sheet-col3 {
+	width: 30px;
+}
+.sheet-shield .sheet-header-shield .sheet-col4 {
+	width: 65px;
+}
+.sheet-shield .sheet-row-shield .sheet-col0 {
+	width: calc(100% - 275px);
+}
+.sheet-shield .sheet-row-shield .sheet-col0 input {
+	text-align: left;
+	padding-left: 4px;
+}
+.sheet-shield .sheet-row-shield .sheet-col1 {
+	width: 30px;
+}
+.sheet-shield .sheet-row-shield .sheet-col2 {
+	width: 120px;
+}
+.sheet-shield .sheet-row-shield .sheet-col3 {
+	width: 30px;
+}
+.sheet-shield .sheet-row-shield .sheet-col4a {
+	width: 30px;
+}
+.sheet-shield .sheet-row-shield .sheet-col4b {
+	width: 5px;
+}
+.sheet-shield .sheet-row-shield .sheet-col4c {
+	width: 30px;
+}
+.sheet-woundsbox {
+	width: calc(100% - 262px - 0.4em);
+}
+.sheet-woundsbox .sheet-header .sheet-col0 {
+	width: 100%;
+	text-align: center;
+}
+.sheet-woundsbox .sheet-subheader-injury .sheet-col0 {
+	width: 100%;
+}
+.sheet-woundsbox .sheet-row-afflictions .sheet-col0 {
+	width: 100%;
+	height: inital;
+	padding: 4px;
+}
+.sheet-woundsbox .sheet-row-afflictions-text {
+	height: min-content;
+    overflow: auto;
+}
+.sheet-woundsbox .sheet-row-afflictions-text .sheet-col0 {
+	width: 100%;
+	padding: 4px;
+}
+.sheet-woundsbox .sheet-subheader-tablehead {
+	background-color: black;
+    color: white;
+	height: 16px;
+}
+.sheet-woundsbox .sheet-subheader-woundsbox .sheet-col0 {
+	width: 100%;	
+}
+.sheet-woundsbox .sheet-subheader-tablehead .sheet-col0 {
+	width: 25%;
+	text-align: center;
+}
+.sheet-woundsbox .sheet-subheader-tablehead .sheet-col1 {
+	width: 12.5%;
+	text-align: center;
+}
+.sheet-woundsbox .sheet-subheader-tablehead .sheet-col2 {
+	width: 12.5%;
+	text-align: center;
+}
+.sheet-woundsbox .sheet-subheader-tablehead .sheet-col3 {
+	width: 50%;
+	text-align: center;
+}
+.sheet-woundsbox .sheet-row-hit_location {
+	border-bottom: 1px solid #c0c0c0;
+}
+.sheet-woundsbox .sheet-row-hit_location .sheet-col0 {
+	width: 25%;
+	padding-left: 4px;
+	border-right: 1px solid #c0c0c0;
+	padding-top: 4px;
+	font-weight:bold;
+}
+.sheet-woundsbox .sheet-row-hit_location .sheet-col0 input {
+	text-align: left;
+}
+.sheet-woundsbox .sheet-row-hit_location .sheet-col1 {
+	width: 12.5%;
+	text-align: center;
+	border-right: 1px solid #c0c0c0;	
+}
+.sheet-woundsbox .sheet-row-hit_location .sheet-col2 {
+	width: 12.5%;
+	text-align: center;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-woundsbox .sheet-row-hit_location .sheet-col3 {
+	width: 50%;
+	padding-left: 4px;
+    font-weight: bold;
+}
+.sheet-woundsbox .sheet-row-hit_location .sheet-col3 input {
+	text-align: left;
+}
+.sheet-woundsbox .sheet-row-hit_location-rep {
+	border-bottom: 1px solid #c0c0c0;	
+}
+.sheet-woundsbox .sheet-row-hit_location-rep .sheet-col0 {
+	width: 25%;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-woundsbox .sheet-row-hit_location-rep .sheet-col0 input {
+	text-align: left;
+}
+.sheet-woundsbox .sheet-row-hit_location-rep .sheet-col1 {
+	width: 12.5%;
+	text-align: center;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-woundsbox .sheet-row-hit_location-rep .sheet-col2 {
+	width: 12.5%;
+	text-align: center;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-woundsbox .sheet-row-hit_location-rep .sheet-col3 {
+	width: 50%;
+}
+.sheet-woundsbox .sheet-row-hit_location-rep .sheet-col3 input {
+	text-align: left;
+}
 
-/* ==============Sheet Input Row 300 ===========================*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col300 { width: calc( 33% - 0.1em); text-align: center;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col301 { width: calc( 33% - 0.1em); text-align: center;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col302 { width: calc( 33% - 0.1em); text-align: center;}
-/* ==============Sheet Input Row 400 ===========================*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col400 { width: calc( 33% - 0.1em); text-align: center;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col401 { width: calc( 33% - 0.1em); text-align: center;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col402 { width: calc( 33% - 0.1em); text-align: center;}
-/* ==============Sheet Input Row 500 ===========================*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col500 { width: 80px; margin-left: 10px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col501 { width: 40px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col502 { width: 78px; margin-left: 5px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col503 { width: 60px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col504 { width: 40px; margin-left: 5px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col505 { width: 60px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col506 { width: 22px; padding-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col507 { width: 70px; margin-left: 2px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col508 { width: 60px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col509 { width: 60px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col510 { width: 60px; margin-left: 2px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col511 { width: 30px; margin-left: 2px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col512 { width: 93px; margin-left: 8px;}  /*--Target Posture text--*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col513 { width: 83px; }  /*--Target Posture drop-down--*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col514 { width: 22px; padding-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col515 { width: 73px; margin-left: 2px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col516 { width: 22px; padding-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col517 { width: 53px; margin-left: 2px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col518 { width: 53px; margin-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col519 { width: 76px; margin-left: 2px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col520 { width: 22px; padding-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col521 { width: 60px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col522 { width: 54px; margin-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col523 { width: 22px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col524 { width: 22px; padding-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col525 { width: 56px;}
-/* ==============Sheet Input Row 600 ===========================*/
-.sheet-combat-modifiers .sheet-header .sheet-col600 { width: 100%;}
-/* ==============Sheet Input Row 700 ===========================*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col700 { width: 22px; margin-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col701 { width: 102px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col702 { width: 50px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col703 { width: 22px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col704 { width: 22px; padding-left: 8px;} /*checkbox*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col705 { width: 46px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col706 { width: 22px; padding-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col707 { width: 70px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col708 { width: 115px; margin-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col709 { width: 44px; margin-left: 2px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col710 { width: 22px; padding-left: 8px;} /*checkbox*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col711 { width: 22px; padding-left: 8px;} /*checkbox*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col712 { width: 65px;}
+.sheet-woundsbox .sheet-header-fatigue .sheet-col0 {
+	width: 100%;
+}
+.sheet-woundsbox .sheet-subheader-fatigue {
+	height: 16px;
+}
+.sheet-woundsbox .sheet-subheader-fatigue .sheet-col0 {
+	width: 50%;
+	color:white;
+	background-color: black;
+}
+.sheet-woundsbox .sheet-row-fatigue .sheet-col0 {
+	width: 50%;
+}
+/* ========================= WOUNDS BOX END ======================================== */
 
-/* ==============Sheet input row 800============================= */
-.sheet-combat-modifiers .sheet-inputs .sheet-col801 { width: 22px; padding-left: 8px;} /*Aim checkbox*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col802 { width: 36px; padding-left: 8px;} /*Aim text*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col803 { width: 20px; margin-right: 40px;}/*Aim input*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col804 { width: 22px; padding-left: 8px;} /*Called shot checkbox*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col805 { width: 90px; padding-left: 8px;} /*Called shot text*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col805a { width: 22px; padding-left: 8px;} /*Called shot text*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col806 { width: 22px; padding-left: 8px; margin-left: 30px;} /*Extra Aim checkbox*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col807 { width: 60px;} /*Extra Aim text*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col808 { width: 20px; padding-left: 8px;} /*Extra Aim input*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col809 { width: 22px; padding-left: 8px; margin-left: 30px;} /*Braced checkbox*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col810 { width: 120px; padding-left: 8px;} /*Braced text*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col8l1 { width: 22px; padding-left: 8px; margin-left: 30px;} /*Popup checkbox*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col812 { width: 120px; padding-left: 8px;} /*Popup text*/
+/* ===== ===== ===== ===== Condtions Box ===== ===== ===== ===== */
 
+.sheet-conditions {
+	width: calc(100% - 262px - 0.4em);
+}
 
-/* ==============Sheet input row 900 ========================== */
-.sheet-combat-modifiers .sheet-inputs .sheet-col900 { width: 60px; margin-left: 8px; } /*Rapid Fire label*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col901 { width: 84px;} /*Rapid Fire Drop-down*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col902 { width: 22px; padding-left: 8px; margin-left: 0px;} /*Opp fire Checkbox*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col903 { width: 54px;} /*Opp Fire label*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col904 { width: 80px;} /*Opp Fire Hex drop-down*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col905 { width: 22px; padding-left: 8px; margin-left: 0px;} /*Strike CCBT checkbox*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col906 { width: 88px;} /*Strike CCBT label*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col907 { width: 22px; padding-left: 8px; margin-left: 0px;} /*Wildswing checkbox*/
-.sheet-combat-modifiers .sheet-inputs .sheet-col908 { width: 80px;} /*Wildswing label*/
+.sheet-conditions .sheet-header .sheet-col0 {
+	width: 100%;
+}
+.sheet-conditions .sheet-subheader-afflictions {
+	background: #391244;
+	background: -moz-linear-gradient(left, #391244 0%, #AB35CB 50%, #391244 100%);
+	background: -webkit-linear-gradient(left, #391244 0%, #AB35CB 50%, #391244 100%);
+	background: linear-gradient(to right, #391244 0%, #AB35CB 50%, #391244 100%);
+}
+.sheet-conditions .sheet-subheader-afflictions .sheet-col0 {
+	width: 100%;
+}
+.sheet-conditions .sheet-subheader-injury {
+	background: #750000;
+	background: -moz-linear-gradient(left, #750000 0%, #FF1700 50%, #750000 100%);
+	background: -webkit-linear-gradient(left, #750000 0%, #FF1700 50%, #750000 100%);
+	background: linear-gradient(to right, #750000 0%, #FF1700 50%, #750000 100%);
+}
+.sheet-conditions .sheet-subheader-injury .sheet-col0 {
+	width: 100%;
+}
+.sheet-conditions .sheet-subheader-fatigue {
+	background: #104900;
+	background: -moz-linear-gradient(left, #104900 0%, #2BCB00 50%, #104900 100%);
+	background: -webkit-linear-gradient(left, #104900 0%, #2BCB00 50%, #104900 100%);
+	background: linear-gradient(to right, #104900 0%, #2BCB00 50%, #104900 100%);
+}
+.sheet-conditions .sheet-subheader-fatigue .sheet-col0 {
+	width: 100%;
+}
+.sheet-conditions .sheet-row-afflictions .sheet-col0 {
+	width: 100%;
+	height: inital;
+	padding: 4px;
+}
+.sheet-conditions .sheet-row-afflictions-text {
+	overflow: auto;
+	height: inherit;
+}
+.sheet-conditions .sheet-row-afflictions-text .sheet-col0 {
+	width: 100%;
+	height: min-content;
+	padding: 4px;
+}
+/* =========================================== DEFENSE WOUNDS BOX END ====================================== */
 
-/* ==============Sheet input row 1000 ========================== */
-.sheet-combat-modifiers .sheet-header .sheet-col1000 { width: 100%; text-align: center;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col1001 { width: 22px; padding-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col1002 { width: 130px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col1003 { width: 22px; padding-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col1004 { width: 36px; padding-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col1005 { width: 20px; margin-left: 8px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col1006 { width: 22px; padding-left: 8px; margin-left: 74px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col1007 { width: 50px; }
-.sheet-combat-modifiers .sheet-inputs .sheet-col1008 { width: 20px; }
-.sheet-combat-modifiers .sheet-inputs .sheet-col1009 { width: 22px; padding-left: 8px; margin-left: 54px;}
-.sheet-combat-modifiers .sheet-inputs .sheet-col1010 { width: 160px; }
+/* ======= MELEE ========================== */
+.sheet-box-melee  {
+	width: calc(100% - 0.4em);
+}
+.sheet-box-melee .sheet-header-melee {
+	width: 100%;
+}
+.sheet-box-melee .sheet-subheader-melee {
+	color: white;
+	background-color: black;
+}
+.sheet-box-melee .sheet-subheader-melee .sheet-col0 {
+	width: 100%;
+}
+.sheet-box-melee .sheet-header-melee .sheet-col1 {
+	width: calc(100% - 506px);
+	margin-left: 40px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee .sheet-header-melee .sheet-col2 {
+	width: 140px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee .sheet-header-melee .sheet-col3 {
+	width: 32px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee .sheet-header-melee .sheet-col4 {
+	width: 32px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee .sheet-header-melee .sheet-col5 {
+	width: 156px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee .sheet-header-melee .sheet-col6 {
+	width: 50px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee .sheet-header-melee .sheet-col7 {
+	width: 30px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee .sheet-header-melee .sheet-col8 {
+	width: 22px;
+}
+.sheet-box-melee .sheet-row-melee {
+	border-bottom: 1px solid #c0c0c0;
+}
+.sheet-box-melee .sheet-row-melee .sheet-col0 {
+	width: 24px;
+    margin-left: 16px;
+    /* padding-right: 6px; */
+    /* border-right: 1px solid #c0c0c0; */
+    border-left: 1px solid #c0c0c0;
+}
+.sheet-box-melee .sheet-row-melee .sheet-col1 {
+	width: calc(100% - 506px);
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee .sheet-row-melee .sheet-col1 input {
+	text-align: left;
+}
+.sheet-box-melee .sheet-row-melee .sheet-col2 {
+	width: 140px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee .sheet-row-melee .sheet-col2 input {
+	text-align: left;
+}
+.sheet-box-melee .sheet-row-melee .sheet-col3 {
+	width: 32px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee .sheet-row-melee .sheet-col4 {
+	width: 32px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee .sheet-row-melee .sheet-col5a {
+	width:84px;
+}
+.sheet-box-melee .sheet-row-melee .sheet-col5a input {
+	text-align:right;
+}
+.sheet-box-melee .sheet-row-melee .sheet-col5b {
+	width:72px;
+	border-right: 1px solid #c0c0c0;
+}
 
-/* -- POSSESSIONS -- */
-.sheet-quick-inventory { width: calc(100% - 0.4em); }
+.sheet-box-melee .sheet-row-melee .sheet-col6 {
+	width: 50px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee .sheet-row-melee .sheet-col6 input {
+	text-align: left;
+}
+.sheet-box-melee .sheet-row-melee .sheet-col7 {
+	width: 30px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee .sheet-row-melee .sheet-col7 input {
+	text-align: left;
+}
+.sheet-box-melee .sheet-row-melee .sheet-col8 {
+	width: 22px;
+}
 
-.sheet-items { width: calc(100% - 0.4em); }
-.sheet-items .sheet-col0 { width: calc(100% - 340px); }
-.sheet-items .sheet-col0 input { text-align:left; }
-.sheet-items .sheet-col1 { width: 20px; }
-.sheet-items .sheet-col101 { width: 60px; }
-.sheet-items .sheet-col1 input { text-align:left; }
-.sheet-items .sheet-col2 { width: 50px; }
-.sheet-items .sheet-col3 { width: 50px; }
-.sheet-items .sheet-col4 { width: 50px; }
-.sheet-items .sheet-col5 { width: 0px; }
-.sheet-items .sheet-col6 { width: 0px; }
-.sheet-items .sheet-col7 { width: 80px;}
-.sheet-items .sheet-row-stats .sheet-col0 { margin-left: 20px; width: calc(100% - 360px); }
+.sheet-box-melee .sheet-subheader-melee .sheet-col0 {
+	width: 100%;
+}
+.sheet-box-melee .sheet-row-melee-sub-row .sheet-col0 {
+	width: 75px;
+	padding-left: 4px;
+}
+.sheet-box-melee .sheet-row-melee-sub-row .sheet-col0 .sheet-tooltip {
+	    margin-left: 40px;
+}
+.sheet-box-melee .sheet-row-melee-sub-row .sheet-col1 {
+	width: 150px;
+}
+.sheet-box-melee .sheet-row-melee-sub-row .sheet-col2 {
+	width: 530px;
+}
 
-.sheet-items .sheet-row-details .sheet-col0 { margin-left: 20px; width: 80px;}
+.sheet-box-melee .sheet-row-details {
+	min-height: 44px;
+	overflow: auto;
+}
+.sheet-box-melee .sheet-row-details .sheet-col0 {
+	width: 40px;
+	height: 44px;
+    /* border-right: 1px solid #c0c0c0; */
+    float: left;
+}
+.sheet-box-melee .sheet-row-details .sheet-col0 .sheet-tooltip {
+	margin-left: 10px;
+    margin-top: -22px;
+}
+.sheet-box-melee .sheet-row-details .sheet-col1 {
+	width: calc(100% - 40px);
+    display: inline-block;
+    float: right;
+}
+.sheet-box-melee .sheet-row-details .sheet-col1 textarea {
+	text-align: left;
+	font-weight: normal;
+}
+.sheet-box-melee .sheet-row-details-rowid {
+	height: 14px;
+	font-size: 10px;
+}
+.sheet-box-melee .sheet-row-details-rowid input {
+	height: 14px;
+    font-size: 10px;
+    padding-bottom: 4px;
+}
+.sheet-box-melee .sheet-row-details-rowid .sheet-col2 {
+	width: 120px;
+    margin-left: 40px;
+}
+.sheet-box-melee .sheet-row-details-rowid .sheet-col3 {
+	width: 160px;
+}
+/* ======== MELEE MODIFIERS BOX ======== */
+.sheet-box-melee-modifiers  {
+	width: calc(100% - 0.4em);
+}
+.sheet-box-melee-modifiers .sheet-header-melee-modifiers {
+	width:100%;
+	background-color: #e60000;
+	color: #000000;
+}
 
-.sheet-items .sheet-row-totals .sheet-col0 { width: calc(100% - 380px); }
-.sheet-items .sheet-row-totals .sheet-col1 { width: 100px; }
-.sheet-items .sheet-row-totals .sheet-col2 { width: 100px; }
-.sheet-items .sheet-row-totals .sheet-col3 { width: 100px; }
-.sheet-items .sheet-row-totals .sheet-col4 { width: 110px; }
-.sheet-items .sheet-row-totals .sheet-col5 { width: 120px; }
-.sheet-items .sheet-row-totals .sheet-col5 input { text-align:left; }
-.sheet-items .sheet-row-totals .sheet-col6 { width: 20px; }
-.sheet-items .sheet-row-totals .sheet-col6 { margin-left: 24px; }
+.sheet-box-melee-modifiers .sheet-subheader-melee-modifiers {
+	width: 100%;
+	background-color: #000000;
+    height: 16px;
+    text-align: center;
+    color: #ffffff;
+}
+.sheet-box-melee-modifiers .sheet-subheader-melee-modifiers2 {
+	width: 100%;
+	background-color: #000000;
+    height: min-content;
+    overflow: auto;
+    text-align: center;
+    color: #ffffff;
+}
+.sheet-box-melee-modifiers .sheet-header-melee-modifiers .sheet-col0 {
+	width: 175px;
+	margin-left: calc((100% - 205px) * 0.5);
+	}
+.sheet-box-melee-modifiers .sheet-header-melee-modifiers .sheet-col1 {
+	width: 30px;
+	color: #303030;
+	font-weight: bold;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers {
+	border-bottom: 1px solid #c0c0c0;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers2 {
+	height: min-content;
+    overflow: auto;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col0-0 {
+	width:70px;
+	padding-left:4px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col0-1 {
+	width:100px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col0-2 {
+	width:75px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col0-3 {
+	width:30px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col0-4 {
+	width:60px;
+	padding-left: 4px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col0-5 {
+	width: 24px;
+    padding-left: 4px;
+    border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col0-6 {
+	width:50px;
+	padding-left: 4px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col0-7 {
+	width:28px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col0-8 {
+	width:22px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col0-9 {
+	width:22px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col0-10 {
+	width:75px;
+	padding-left: 4px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col0-11 {
+	width:22px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col0-12 {
+	width:30px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col0-13 {
+	width: 57px;
+    padding-left: 4px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col0-14 {
+	width: 30px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col0-15 {
+	width: 30px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col0-16 {
+	width: 50px;
+	padding-left: 4px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col0-17 {
+	width: 30px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col1-0 {
+	width: 110px;
+	margin-left:calc((100% - 689px) * 0.5);
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col1-1 {
+	width: 42px;
+	padding-right: 2px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col1-2 {
+	width: 136px;
+    padding-left: 4px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col1-3 {
+	width: 16px;
+}
+/* ============ Turned Off =============== */
+input.sheet-melee-dualweapononoff:not([value='1']) ~ div.sheet-melee-dualweaponon {
+	display: none;
+}
+/* =========== Turned On ================ */
+input.sheet-melee-dualweapononoff:not([value='0']) ~ div.sheet-melee-dualweaponoff {
+	display: none;
+}
 
-.sheet-loadouts { width: calc(33% - 0.2em); }
-.sheet-loadouts .sheet-col0 {width: 20px;}
-.sheet-loadouts .sheet-col1 {width: calc(100% - 20px); }
-.sheet-loadouts .sheet-loadout-row .sheet-col0 {width: 50px; }
-.sheet-loadouts .sheet-loadout-row .sheet-col1 {width: calc(100% - 50px); }
-.sheet-loadouts .sheet-loadout-row .sheet-col1 input { text-align:left; }
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col1-4 {
+	width: 56px;
+	padding-left: 4px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col1-5 {
+	width: 16px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col1-6 {
+	width: 66px;
+    padding-left: 4px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col1-7 {
+	width: 20px;
+	padding-right: 4px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col1-8 {
+	width: 66px;
+    padding-left: 4px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col1-9 {
+	width: 40px;
+    padding-right: 4px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col1-10 {
+	width: 105px;
+    padding-left: 4px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col1-11 {
+	width: 16px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col2-0 {
+	width: 78px;
+	margin-left:calc((100% - 394px) * 0.5);
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col2-1 {
+	width: 24px;
+    padding-left: 4px;
+    border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col2-2 {
+	width: 168px;
+    padding-left: 4px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col2-3 {
+	width: 24px;
+    border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col2-4 {
+	width: 76px;
+    padding-left: 4px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col2-5 {
+	width: 24px;
+    padding-left: 4px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col3-0 {
+    width: 215px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col3-1 {
+    width: 152px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col3-2 {
+    width: 38px;
+	border-right: 1px solid #c0c0c0;
+	text-align: center;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col3-3 {
+    width: calc(100% - 409px);
+	text-align: center;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers2 .sheet-col4-0 {
+	width: 100%;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col5-0 {
+	width:130px;
+	margin-left: calc((100% - 720px) * 0.5);
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col5-1 {
+	width:16px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col5-2 {
+	width:16px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col5-3 {
+	width:100px;
+	padding-left:4px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col5-4 {
+	width:16px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col5-5 {
+	width:16px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col5-6 {
+	width:210px;
+	padding-left:4px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col5-7 {
+	width:38px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col5-8 {
+	width:108px;
+	padding-left:4px;
+}
+.sheet-box-melee-modifiers .sheet-row-melee-modifiers .sheet-col5-9 {
+	width:33px;
+}
+input.sheet-meleenosee:not([value='1']) ~ div.sheet-meleenosee {
+	display: none;
+}
+input.sheet-meleenosee:not([value='0']) ~ div.sheet-meleesee {
+	display: none;
+}
+input.sheet-meleenoseefoe:not([value='1']) ~ div.sheet-meleenoseefoe {
+	display: none;
+}
+input.sheet-meleenoseefoe:not([value='0']) ~ div.sheet-meleeseefoe {
+	display: none;
+}
+/* ------- subheaders melee-modifiers ------ */
+.sheet-box-melee-modifiers .sheet-subheader-melee-modifiers .sheet-col0-0 {
+	width: 215px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee-modifiers .sheet-subheader-melee-modifiers .sheet-col0-1 {
+	width: 152px;
+	border-right: 1px solid #c0c0c0;;
+}
+.sheet-box-melee-modifiers .sheet-subheader-melee-modifiers .sheet-col0-2 {
+    width: 38px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-melee-modifiers .sheet-subheader-melee-modifiers .sheet-col0-3 {
+    width: calc(100% - 409px);
+	text-align: center;
+}
+.sheet-box-melee-modifiers .sheet-subheader-melee-modifiers .sheet-col1-0 {
+    width: 100%;
+}
+.sheet-box-melee-modifiers .sheet-subheader-melee-modifiers .sheet-col2-0 {
+    width: 100%;
+}
+.sheet-box-melee-modifiers .sheet-subheader-melee-modifiers2 .sheet-col4-0 {
+	text-align: center;
+    width: 100%;
+}
 
+/* ======= RANGED SUB TAB =========== */
+
+.sheet-box-ranged {
+	width: calc(100% - 0.4em);
+}
+.sheet-box-ranged .sheet-ranged-header {
+	width: 100%;
+}
+.sheet-box-ranged .sheet-ranged-header .sheet-col0 {
+	width: calc(100% - 612px);
+	margin-left: 40px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-ranged-header .sheet-col1 {
+	width: 68px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-ranged-header .sheet-col2 {
+	width: 28px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-ranged-header .sheet-col3 {
+	width: 30px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-ranged-header .sheet-col4 {
+	width: 130px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-ranged-header .sheet-col5 {
+	width: 106px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-ranged-header .sheet-col6 {
+	width: 40px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-ranged-header .sheet-col7 {
+	width: 44px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-ranged-header .sheet-col8 {
+	width: 32px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-ranged-header .sheet-col9 {
+	width: 26px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-ranged-header .sheet-col10 {
+	width: 40px;
+}
+.sheet-box-ranged .sheet-row-ranged  {
+	border-bottom: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col0 {
+	width: 24px;
+    margin-left: 16px;
+    /* padding-right: 6px; */
+    /* border-right: 1px solid #c0c0c0; */
+    border-left: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col1 {
+	/* Weapon Name */
+	width: calc(100% - 612px);
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col1 input {
+	text-align: left;
+	padding-left: 4px;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col2 {
+	width: 68px;
+	border-right: 1px solid #c0c0c0;	
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col2 input {
+	text-align: left;
+	padding-left: 4px;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col3 {
+	width: 28px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col3 input {
+	text-align:left;
+	padding-left: 4px;
+}	
+.sheet-box-ranged .sheet-row-ranged .sheet-col4 {
+	width: 30px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col4 input {
+	text-align:left;
+	padding-left: 4px;
+}	
+.sheet-box-ranged .sheet-row-ranged .sheet-col5 {
+	width: 75px;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col5 input {
+	text-align: left;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col5a {
+	width: 55px;
+	border-right: 1px solid #c0c0c0;
+	padding-top: 2px;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col6 {
+	width: 106px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col6 input {
+	text-align: left;
+	padding-left: 4px;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col7 {
+	width: 40px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col7 input {
+	text-align: left;
+	padding-left: 4px;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col8 {
+	width: 44px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col8 input {
+	text-align: left;
+	padding-left: 4px;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col9 {
+	width: 32px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col9 input {
+	text-align: left;
+	padding-left: 4px;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col10 {
+	width: 26px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col10 input {
+	text-align: left;
+	padding-left: 4px;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col11 {
+	width: 40px;
+}
+.sheet-box-ranged .sheet-row-ranged .sheet-col11 input {
+	text-align: left;
+	padding-left: 4px;
+}
+.sheet-box-ranged .sheet-row-ranged-sub-row .sheet-col0 {
+	width: 22px;
+	margin-left: 22px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-row-ranged-sub-row .sheet-col1 {
+	width: 90px;
+}
+.sheet-box-ranged .sheet-row-ranged-sub-row .sheet-col2 {
+	width: 30px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-row-ranged-sub-row .sheet-col2 input {
+	text-align: left;
+	padding-left: 4px;
+}
+.sheet-box-ranged .sheet-row-ranged-sub-row .sheet-col3 {
+	width: 50px;
+	padding-left: 4px;
+}
+.sheet-box-ranged .sheet-row-ranged-sub-row .sheet-col4 {
+	width: 90px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-row-ranged-sub-row .sheet-col5 {
+	width: 60px;
+	padding-left: 4px;
+}
+.sheet-box-ranged .sheet-row-ranged-sub-row .sheet-col6 {
+	width: 170px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged .sheet-row-details input {
+	/* Notes */
+	text-align: left;
+}
+.sheet-box-ranged .sheet-row-details-rowid {
+	height: 14px;
+	font-size: 10px;
+}
+.sheet-box-ranged .sheet-row-details-rowid input {
+	height: 14px;
+    font-size: 10px;
+    padding-bottom: 4px;
+}
+.sheet-box-ranged .sheet-row-details-rowid .sheet-col2 {
+	width: 120px;
+    margin-left: 40px;
+}
+.sheet-box-ranged .sheet-row-details-rowid .sheet-col3 {
+	width: 160px;
+}
+/* ============== RANGED MODIFIERS BOX ============= */
+.sheet-box-ranged-modifiers {
+	width: calc(100% - 0.4em);
+}
+.sheet-box-ranged-modifiers .sheet-header-ranged-modifiers {
+	width:100%;
+	background-color: #6495ED;
+	color: #000000;
+}
+
+.sheet-box-ranged-modifiers .sheet-subheader-ranged-modifiers {
+	width: 100%;
+	background-color: #000000;
+    height: 16px;
+    text-align: center;
+    color: #ffffff;
+}
+.sheet-box-ranged-modifiers .sheet-subheader-ranged-modifiers2 {
+	width: 100%;
+	background-color: #000000;
+    height: min-content;
+    overflow: auto;
+    text-align: center;
+    color: #ffffff;
+}
+.sheet-box-ranged-modifiers .sheet-header-ranged-modifiers .sheet-col0 {
+	width: 195px;
+    margin-left: calc((100% - 225px) * 0.5);
+}
+.sheet-box-ranged-modifiers .sheet-header-ranged-modifiers .sheet-col1 {
+	width: 30px;
+	color: #303030;
+	font-weight: bold;
+}
+.sheet-box-ranged-modifiers .sheet-header-ranged-modifiers .sheet-col1 input {
+	padding-bottom: 6px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers {
+	border-bottom: 1px solid #c0c0c0;
+	overflow-y:hidden;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers2 {
+	height: min-content;
+    overflow: auto;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col0-0 {
+	width:70px;
+	padding-left:4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col0-1 {
+	width:196px;
+	border-right: 1px solid #c0c0c0;
+}
+
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col0-2 {
+	width:79px;
+	padding-left: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col0-3 {
+	width:30px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col0-4 {
+	width:93px;
+	padding-left: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col0-5 {
+	width: 30px;
+    padding-left: 4px;
+    border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col0-6 {
+	width:94px;
+	padding-left: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col0-7 {
+	width:30px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col0-8 {
+	width:71px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col0-9 {
+	width:22px;
+	
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col0-10 {
+	width:30px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col0-11 {
+	width: 50px;
+    padding-left: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col0-12 {
+	width:30px;
+}
+.sheet-box-ranged-modifiers .sheet-subheader-mountedranged {
+	color:#ffffff;
+	background-color:#000000;
+}
+.sheet-box-ranged-modifiers .sheet-subheader-mountedranged .sheet-tooltip {
+	margin-top: -76px;
+}
+.sheet-box-ranged-modifiers .sheet-subheader-mountedranged .sheet-col0 {
+	width: 166px;
+	margin-left: calc((100% - 188px) * 0.5);
+}
+.sheet-box-ranged-modifiers .sheet-subheader-mountedranged .sheet-col1 {
+	width: 22px;
+}
+input.sheet-mountedon:not([value='1']) ~ div.sheet-mountedrangedcombat {
+	display: none;
+}
+
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col1-0 {
+	width: 60px;
+    margin-left: 14px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col1-0 .sheet-tooltip {
+	margin-top: -175px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col1-1 {
+	width: 30px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col1-1 .sheet-tooltip {
+	margin-top: -63px;
+    margin-left: 40px;
+}	
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col1-2 {
+	width: 127px;
+    padding-left: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col1-2 sheet-tooltip {
+	margin-top: -63px;
+    margin-left: 0px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col1-3 {
+	width: 80px;
+	padding-right: 2px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col1-4 {
+	width: 101px;
+    padding-left: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col1-4 .sheet-tooltip {
+	margin-top: -95px;
+    margin-left: 60px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col1-5 {
+	width: 238px;
+	padding-right: 4px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col1-6 {
+	width: 53px;
+	padding-left: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col1-7 {
+	width: 110px;
+	padding-left: 4px;
+}
+
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col2-0 {
+	width: 92px;
+	padding-left: 4px;
+	margin-left: calc((100% - 797px) * 0.5);
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col2-0 .sheet-tooltip {
+	margin-top: -96px;
+    margin-left: -18px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col2-1 {
+	width: 20px;  
+    border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col2-2 {
+    width: 88px;
+	padding-left: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col2-2 .sheet-tooltip {
+	margin-top: -96px;
+    margin-left: -18px;
+}  
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col2-3 {
+	width: 26px;
+	padding-right: 4px;
+	border-right: 1px solid #c0c0c0;	
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col2-4 {
+	width:147px;
+	padding-left: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col2-4 .sheet-tooltip {
+	margin-top: -96px;
+    margin-left: -4px;
+}  
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col2-5 {
+	width: 22px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col2-6 {
+	width: 45px;
+	padding-left: 8px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col2-7 {
+	width: 18px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col2-8 {
+	width: 22px;
+	border-right: 1px solid #c0c0c0;
+}
+input.sheet-mountdodged:not([value='1']) ~ div.sheet-mountdodge {
+	display: none;
+}
+input.sheet-mountdodged:not([value='0']) ~ div.sheet-mountnododge {
+	display: none;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col2-9 {
+	width: 113px;
+	padding-left: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col2-9 .sheet-tooltip {
+	margin-top: -80px;
+    margin-left: -14px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col2-10 {
+	width: 30px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col2-11 {
+	width: 116px;
+	padding-left: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col2-11 .sheet-tooltip {
+    margin-top: -96px;
+    margin-left: -14px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col2-12 {
+	width: 34px;
+}
+.sheet-disable {
+	color:#808080;
+}
+input.sheet-OppfireOnOff:not([value='1']) ~ div.sheet-OppfireOn {
+	display: none;
+}
+input.sheet-OppfireOnOff:not([value='0']) ~ div.sheet-OppfireOff {
+	display: none;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col3-0 {
+    width:61px;
+	margin-left: 23px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col3-1 {
+    width: 22px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col3-2 {
+    width: 82px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col3-3 {
+    width: 22px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col3-4 {
+    width: 98px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col3-5 {
+    padding-right: 4px;
+    width: 60px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col3-6 {
+	padding-left: 4px;
+    width: 136px;
+    border-left: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col3-7 {
+	width:16px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col3-8 {
+	padding-left: 4px;
+    width: 57px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col3-9 {
+	width:16px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col3-10 {
+	padding-left: 4px;
+    width: 66px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col3-11 {
+	width: 20px;
+    border-right: 1px solid #c0c0c0;
+    padding-right: 4px;
+}
+/* ============ Turned Off =============== */
+input.sheet-RDwOnOff:not([value='1']) ~ div.sheet-RDwOn {
+	display: none;
+}
+/* =========== Turned On ================ */
+input.sheet-RDwOnOff:not([value='0']) ~ div.sheet-RDwOff {
+	display: none;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col3-12 {
+	width: 104px;
+	padding-left:4px;
+}
+
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col3-13 {
+	width:22px;
+}
+
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col4-0 {
+	width: 34px;
+	padding-left: 4px;
+	margin-left: calc((100% - 800px) * 0.5);
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col4-1 {
+	width: 22px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col4-2 {
+	width: 30px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col4-2 input {
+	padding-bottom: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col4-3 {
+	padding-left: 4px;
+    width: 46px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col4-4 {
+	width: 22px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col4-5 {
+    width: 30px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col4-5 input {
+	padding-bottom: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col4-6 {
+	padding-left: 4px;
+    width: 67px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col4-7 {
+    width: 74px;
+	padding-right: 4px;
+	border-right: 1px solid #c0c0c0;
+}
+/* ============ Turned Off =============== */
+input.sheet-AimOnOff:not([value='1']) ~ div.sheet-AimOn {
+	display: none;
+}
+/* =========== Turned On ================ */
+input.sheet-AimOnOff:not([value='0']) ~ div.sheet-AimOff {
+	display: none;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col4-8 {
+	padding-left: 4px;
+    width: 42px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col4-9 {
+    width: 22px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col4-10 {
+	width: 52px;
+    padding-left: 4px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col4-11 {
+	width: 22px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col4-12 {
+	width: 53px;
+    padding-left: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col4-13 {
+	width: 22px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col4-14 {
+	width: 67px;
+    padding-left: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col4-15 {
+	width: 124px;
+	padding-right: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col4-16 {
+	width: 50px;
+	padding-left: 4px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col4-17 {
+	width: 22px;
+}
+
+.sheet-box-ranged-modifiers .sheet-subheader-ranged-modifiers .sheet-col5-0 {
+	width: 60px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-subheader-ranged-modifiers .sheet-col5-0 .sheet-tooltip {
+	margin-top: -300px;
+    margin-left: 60px;
+}
+.sheet-box-ranged-modifiers .sheet-subheader-ranged-modifiers .sheet-col5-1 {
+	width: 60px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-subheader-ranged-modifiers .sheet-col5-1 .sheet-tooltip {
+	margin-bottom: 100px;
+    margin-left: -200px;
+}
+.sheet-box-ranged-modifiers .sheet-subheader-ranged-modifiers .sheet-col5-2 {
+	width: 60px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-subheader-ranged-modifiers .sheet-col5-2 .sheet-tooltip {
+	margin-bottom: 100px;
+    margin-left: -200px;
+}
+.sheet-box-ranged-modifiers .sheet-subheader-ranged-modifiers .sheet-col5-3 {
+	width: 100px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-subheader-ranged-modifiers .sheet-col5-4 {
+	width: 60px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-subheader-ranged-modifiers .sheet-col5-5 {
+	width: 60px;
+}
+.sheet-box-ranged-modifiers .sheet-subheader-ranged-modifiers .sheet-col5-6 {
+	width: calc(100% - 400px);
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col5-0 {
+	width: 60px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col5-1 {
+	width: 60px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col5-2 {
+	width: 60px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col5-3 {
+	width: 100px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col5-4 {
+	width: 60px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col5-5 {
+	width: 60px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col5-6 {
+	width: 74px;
+    margin-left: 27px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col5-7 {
+	width: 22px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col5-8 {
+	width: 112px;
+	border-left: 1px solid #c0c0c0;
+	padding-left: 3px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col5-9 {
+	width: 100px;
+	border-left: 1px solid #c0c0c0;
+	padding-left: 3px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col5-10 {
+	width: 54px;
+	border-left: 1px solid #c0c0c0;
+	padding-left: 3px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col5-11 {
+	width: 46px;
+	border-left: 1px solid #c0c0c0;
+	padding-left: 3px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers2 .sheet-col6-0 {
+	width: 100%;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col6-1 {
+	width: 215px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col6-2 {
+	width: 38px;
+	text-align: center;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col6-3 {
+	width: calc(100% - 257px);
+	padding-left: 4px;
+}
+/* ------- subheaders ranged-modifiers ------ */
+.sheet-box-ranged-modifiers .sheet-subheader-ranged-modifiers2 .sheet-col6-0 {
+    width: 100%;
+	text-align: center;
+}
+.sheet-box-ranged-modifiers .sheet-subheader-ranged-modifiers .sheet-col6-1 {
+	width: 215px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-subheader-ranged-modifiers .sheet-col6-2 {
+    width: 38px;
+	border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-subheader-ranged-modifiers .sheet-col6-3 {
+    width: calc(100% - 257px);
+	text-align: center;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col7-0 {
+	width: 130px;
+    margin-left: calc((100% - 720px) * 0.5);
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col7-1 {
+	width: 16px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col7-2 {
+	width: 16px;
+    border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col7-3 {
+	width: 100px;
+    padding-left: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col7-4 {
+	width: 16px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col7-5 {
+	width: 16px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col7-6 {
+	width: 210px;
+    padding-left: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col7-7 {
+	width: 38px;
+    border-right: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col7-8 {
+	width: 108px;
+    padding-left: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col7-9 {
+	width: 33px;
+}
+input.sheet-RNSOnOff:not([value='1']) ~ div.sheet-RNSOn {
+	display: none;
+}
+input.sheet-RNSOnOff:not([value='0']) ~ div.sheet-RNSOff {
+	display: none;
+}
+input.sheet-RNoSeeFoeOnOff:not([value='1']) ~ div.sheet-RNoSeeFoeOn {
+	display: none;
+}
+input.sheet-RNoSeeFoeOnOff:not([value='0']) ~ div.sheet-RNoSeeFoeOff {
+	display: none;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col8-0 {
+	width: 74px;
+	margin-left: calc((100% - 394px) * 0.5);
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col8-1 {
+	width: 22px;
+}
+input.sheet-RBehindOnOff:not([value='1']) ~ div.sheet-RBehindOn {
+	display: none;
+}
+input.sheet-RBehindOnOff:not([value='0']) ~ div.sheet-RBehindOff {
+	display: none;
+}
+
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col8-2 {
+	width: 114px;
+	padding-left: 4px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col8-3 {
+	width: 30px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col8-3 input {
+	padding-bottom: 4px;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col8-4 {
+	width: 56px;
+	padding-left: 4px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-row-ranged-modifiers .sheet-col8-5 {
+	width: 48px;
+	padding-left: 4px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-box-ranged-modifiers .sheet-subheader-ranged-modifiers .sheet-col2-0 {
+    width: 100%;
+}
+.sheet-box-ranged-modifiers .sheet-subheader-ranged-modifiers2 .sheet-col4-0 {
+	text-align: center;
+    width: 100%;
+}
+
+/* ==== ===== COMBAT TOOLS SUB TAB===== ==== */
+.sheet-box-thrown { width: calc(50% - 0.2em); }
+.sheet-box-thrown .sheet-header-thrown { width: 100%; }
+.sheet-box-thrown .sheet-header-thrown .sheet-col0 {
+	width: 100%;
+}
+.sheet-box-thrown .sheet-header-thrown .sheet-col1 {
+	width: 40px;
+}
+.sheet-box-thrown .sheet-header-thrown .sheet-col2 {
+	width: 33px;
+}
+.sheet-box-thrown .sheet-header-thrown .sheet-col3 {
+	width: 35px;
+}
+.sheet-box-thrown .sheet-header-thrown .sheet-col4 {
+	width: 45px;
+}
+.sheet-box-thrown .sheet-header-thrown .sheet-col5 {
+	width: 80px;
+}
+.sheet-box-thrown .sheet-header-thrown .sheet-col6 {
+	width: 60px;
+}
+.sheet-box-thrown .sheet-header-thrown .sheet-col7 {
+	width: 60px;
+}
+.sheet-box-thrown .sheet-header-thrown .sheet-col8 {
+	width: 22px;
+}
+
+.sheet-box-thrown .sheet-row-thrown { width: 100%; }
+
+.sheet-box-thrown .sheet-row-thrown .sheet-col1 {
+	width: 40px;
+}
+.sheet-box-thrown .sheet-row-thrown .sheet-col2 {
+	width: 33px;
+}
+.sheet-box-thrown .sheet-row-thrown .sheet-col3 {
+	width: 35px;
+}
+.sheet-box-thrown .sheet-row-thrown .sheet-col4 {
+	width: 45px;
+}
+.sheet-box-thrown .sheet-row-thrown .sheet-col5 {
+	width: 80px;
+}
+.sheet-box-thrown .sheet-row-thrown .sheet-col6 {
+	width: 60px;
+}
+.sheet-box-thrown .sheet-row-thrown .sheet-col7 {
+	width: 60px;
+}
+.sheet-box-thrown .sheet-row-thrown .sheet-col8 {
+	width: 22px;
+}
+
+.sheet-box-fall {width: calc(50% - 0.2em); }
+.sheet-box-fall .sheet-header-fall {width: 100%;}
+.sheet-box-fall .sheet-header-fall .sheet-col0 {width: 100%;}
+.sheet-box-fall .sheet-header-fall .sheet-col1 {
+	width: 55px;
+	}
+.sheet-box-fall .sheet-header-fall .sheet-col2 {
+	width: 45px;
+	}
+.sheet-box-fall .sheet-header-fall .sheet-col3 {
+	width: 30px;
+	}
+.sheet-box-fall .sheet-header-fall .sheet-col4 {
+	width: 30px;
+	}
+.sheet-box-fall .sheet-header-fall .sheet-col5 {
+	width: 40px;
+	}
+.sheet-box-fall .sheet-header-fall .sheet-col6 {
+	width: 40px;
+	}
+.sheet-box-fall .sheet-header-fall .sheet-col7 {
+	width: 80px;
+	}
+.sheet-box-fall .sheet-header-fall .sheet-col8 {
+	width: 30px;
+	}
+.sheet-box-fall .sheet-header-fall .sheet-col9 {
+	width: 60px;
+	}
+	
+.sheet-box-fall .sheet-row-fall .sheet-col1 {
+	width: 55px;
+	padding: 2px;
+	}
+.sheet-box-fall .sheet-row-fall .sheet-col2 {
+	width: 45px;
+	}
+.sheet-box-fall .sheet-row-fall .sheet-col3 {
+	width: 30px;
+	}
+.sheet-box-fall .sheet-row-fall .sheet-col4 {
+	width: 30px;
+	}
+.sheet-box-fall .sheet-row-fall .sheet-col5 {
+	width: 40px;
+	}
+.sheet-box-fall .sheet-row-fall .sheet-col6 {
+	width: 40px;
+	}
+.sheet-box-fall .sheet-row-fall .sheet-col7 {
+	width: 80px;
+	}
+.sheet-box-fall .sheet-row-fall .sheet-col8 {
+	width: 30px;
+    padding-right: 6px;
+	}
+.sheet-box-fall .sheet-row-fall .sheet-col9 {
+	width: 60px;
+	}
+
+/* -- ===== ===== ===== ===== ITEMS TAB ===== ===== ===== ===== -- */
+
+.sheet-quick-inventory {
+	width: calc(100% - 0.4em);
+}
+.sheet-quick-inventory .sheet-quickinv {
+	height: initial;
+}
+.sheet-quick-inventory .sheet-quickinv textarea {
+	width: calc(100% - 0.4em);
+	resize: vertical;
+	min-height: 60px;
+}
+.sheet-items {
+	width: calc(100% - 0.4em);
+}
+
+.sheet-items .sheet-header .sheet-col0 {
+	width: 45px;
+	border-right: 1px solid #c0c0c0;
+    border-left: 1px solid #c0c0c0;
+    margin-left: 16px;
+}
+.sheet-items .sheet-header .sheet-col1 {
+	width: 20px;
+}
+.sheet-items .sheet-header .sheet-col2 {
+	width: calc(100% - 501px);
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-items .sheet-header .sheet-col3 {
+	width: 80px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-items .sheet-header .sheet-col4 {
+	width: 60px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-items .sheet-row-items {
+	border-bottom: 1px solid #c0c0c0;
+}
+.sheet-items .sheet-row-items .sheet-col0 {
+	width: 45px;
+	border-right: 1px solid #c0c0c0;
+    border-left: 1px solid #c0c0c0;
+    margin-left: 16px;
+}
+.sheet-items .sheet-row-items .sheet-col0 input {
+	text-align:right;
+}
+.sheet-items .sheet-row-items .sheet-col1 {
+	width: 20px;
+}
+.sheet-items .sheet-row-items .sheet-col2 {
+	width: calc(100% - 501px);
+	border-left: 1px solid #c0c0c0;
+	text-align: left;
+}
+.sheet-items .sheet-row-items .sheet-col2 input {
+	text-align: left;
+}
+.sheet-items .sheet-row-items .sheet-col3 {
+	width: 80px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-items .sheet-row-items .sheet-col3 input {
+	text-align: right;
+}
+.sheet-items .sheet-row-items .sheet-col4 {
+	width: 60px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-items .sheet-row-items .sheet-col4 input {
+	text-align: left;
+}
+.sheet-items .sheet-row-details input {
+	/* Notes */
+	text-align: left;
+}
+.sheet-items .sheet-row-details-rowid {
+	height: 14px;
+	font-size: 10px;
+}
+.sheet-items .sheet-row-details-rowid input {
+	height: 14px;
+    font-size: 10px;
+    padding-bottom: 4px;
+}
+.sheet-items .sheet-row-details-rowid .sheet-col2 {
+	width: 120px;
+    margin-left: 40px;
+}
+.sheet-items .sheet-row-details-rowid .sheet-col3 {
+	width: 160px;
+}
+.sheet-loadouts {
+	width: calc(100% - 0.4em);
+}
+.sheet-loadouts .sheet-header-loadouts .sheet-col0 {
+	width: 20px;
+}
+.sheet-loadouts .sheet-header-loadouts .sheet-col1 {
+	width: calc((100% - 20px) * 0.3);
+}
+.sheet-loadouts .sheet-loadout-row .sheet-col0 {
+	width: 52px;
+	padding-left: 4px;
+}
+.sheet-loadouts .sheet-loadout-row .sheet-col2 {
+	width: 52px;
+	padding-left: 4px;
+	border-left: 1px solid #000000;
+}
+.sheet-loadouts .sheet-loadout-row .sheet-col3 {
+	width: 52px;
+	padding-left: 4px;
+	border-left: 1px solid #000000;
+}
+.sheet-loadouts .sheet-loadout-row .sheet-col1 {
+	width: calc((100% - 52px) * 0.272);
+	padding-left: 4px;
+}
+.sheet-loadouts .sheet-loadout-row .sheet-col1 input {
+	text-align: left;
+}
+.sheet-loadouts .sheet-row-loadout-totals {
+	border-top: 2px solid #000000;
+}
+.sheet-loadouts .sheet-row-loadout-totals input {
+	font-weight: 700;
+	text-align: left;
+}
+.sheet-loadouts .sheet-row-loadout-totals .sheet-col0 {
+	width: 25%;
+}
+.sheet-loadouts .sheet-row-loadout-totals .sheet-col1 {
+	width: 25%;
+}
+.sheet-loadouts .sheet-row-loadout-totals .sheet-col2 {
+	width: 25%;
+	border-left: 1px solid #000000;
+}
+.sheet-loadouts .sheet-row-loadout-totals .sheet-col3 {
+	width: 25%;
+}
 /* -- SPELLS -- */
-.sheet-magic { width: calc(100% - 0.4em); }
-.sheet-magic .sheet-col0 { width: 180px; }
-.sheet-magic .sheet-col1 { width: 22px; }
-.sheet-magic .sheet-col2 { width: 180px; }
-.sheet-magic .sheet-col3 { width: 22px; }
+.sheet-energy {
+	width: calc(100% - 0.4em);
+}
+.sheet-energy .sheet-header-energy {
+	width: 100%;
+}
+.sheet-energy .sheet-header-energy .sheet-col0 {
+	width: calc(100% - 246px);
+}
+.sheet-energy .sheet-header-energy .sheet-col1 {
+	width: 80px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-energy .sheet-header-energy .sheet-col2 {
+	width: 80px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-energy .sheet-header-energy .sheet-col3 {
+	width: 80px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-energy .sheet-row-energy {
+	border-bottom: 1px solid #c0c0c0;
+}
+.sheet-energy .sheet-row-energy .sheet-col0 {
+	width: calc(100% - 246px);
+}
+.sheet-energy .sheet-row-energy .sheet-col0 input {
+	text-align: left;
+	padding-left: 2px;
+}
+.sheet-energy .sheet-row-energy .sheet-col1 {
+	width: 80px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-energy .sheet-row-energy .sheet-col2 {
+	width: 80px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-energy .sheet-row-energy .sheet-col3 {
+	width: 80px;
+	border-left: 1px solid #c0c0c0;
+}
+
+.sheet-spells {
+	width: calc(100% - 0.4em);
+}
+.sheet-spells .sheet-header-spells .sheet-col0 {
+	width: calc(100% - 516px);
+	border-left: 1px solid #c0c0c0;
+    margin-left: 16px;
+}
+.sheet-spells .sheet-header-spells .sheet-col1 {
+	width: 140px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-spells .sheet-header-spells .sheet-col2 {
+	width: 80px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-spells .sheet-header-spells .sheet-col3 {
+	width: 100px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-spells .sheet-header-spells .sheet-col4 {
+	width: 40px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-spells .sheet-header-spells .sheet-col5 {
+	width: 40px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-spells .sheet-header-spells .sheet-col6 {
+	width: 40px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-spells .sheet-header-spells .sheet-col7 {
+	width: 60px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-spells .sheet-row-spells {
+	border-bottom: 1px solid #c0c0c0;
+	height: 44px;
+}
+.sheet-spells .sheet-row-spells input {
+	font-weight: normal;
+}
+.sheet-spells .sheet-row-spells .sheet-col0 {
+	margin-left: 16px;
+	width: 22px;
+	border-left: 1px solid #c0c0c0;
+	height: 44px;
+}
+.sheet-spells .sheet-row-spells .sheet-col1 {
+	width: calc(100% - 538px);
+	height: 44px;
+}
+.sheet-spells .sheet-row-spells .sheet-col1 input {
+	text-align: left;
+}
+.sheet-spells .sheet-row-spells .sheet-col2 {
+	width: 140px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-spells .sheet-row-spells .sheet-col2 input {
+	text-align: left;
+}
+.sheet-spells .sheet-row-spells .sheet-col3 {
+	width: 80px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-spells .sheet-row-spells .sheet-col3 input {
+	text-align: left;
+}
+.sheet-spells .sheet-row-spells .sheet-col4 {
+	width: 100px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-spells .sheet-row-spells .sheet-col4 input {
+	text-align: left;
+}
+.sheet-spells .sheet-row-spells .sheet-col5 {
+	width: 40px;
+	border-left: 1px solid #c0c0c0;
+	height: 44px;
+}
+.sheet-spells .sheet-row-spells .sheet-col6 {
+	width: 40px;
+	border-left: 1px solid #c0c0c0;
+	height: 44px;
+}
+.sheet-spells .sheet-row-spells .sheet-col7 {
+	width: 40px;
+	border-left: 1px solid #c0c0c0;
+	height: 44px;
+}
+.sheet-spells .sheet-row-spells .sheet-col7 input {
+	text-align: right;
+}
+.sheet-spells .sheet-row-spells .sheet-col8 {
+	width: 60px;
+	border-left: 1px solid #c0c0c0;
+	height: 44px;
+}
+.sheet-spells .sheet-row-spells .sheet-col8 input {
+	text-align: left;
+}
+.sheet-spells .sheet-row-details input {
+	/* Notes */
+	text-align: left;
+}
+.sheet-spells .sheet-row-details-rowid {
+	height: 14px;
+	font-size: 10px;
+}
+.sheet-spells .sheet-row-details-rowid input {
+	height: 14px;
+    font-size: 10px;
+    padding-bottom: 4px;
+}
+.sheet-spells .sheet-row-details-rowid .sheet-col2 {
+	width: 120px;
+    margin-left: 40px;
+}
+.sheet-spells .sheet-row-details-rowid .sheet-col3 {
+	width: 160px;
+}
+/* =========================== Rituals =================================*/
+
+.sheet-rituals {
+	width: calc(100% - 0.4em);
+}
+.sheet-rituals .sheet-ritualheader .sheet-col0 {
+	width: calc(100% - 116px);
+	margin-left: 16px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-rituals .sheet-ritualheader .sheet-col1 {
+	width: 50px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-rituals .sheet-ritualheader .sheet-col2 {
+	width: 50px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-rituals .sheet-row-rituals {
+	border-bottom: 1px solid #c0c0c0;
+}
+.sheet-rituals .sheet-row-rituals .sheet-col0 {
+	width: 22px;
+    margin-left: 16px;
+    border-left: 1px solid #c0c0c0;
+}
+.sheet-rituals .sheet-row-rituals .sheet-col1 {
+	width: calc(100% - 138px);
+}
+.sheet-rituals .sheet-row-rituals .sheet-col1 input {
+	text-align: left;
+}
+.sheet-rituals .sheet-row-rituals .sheet-col2 {
+	width: 50px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-rituals .sheet-row-rituals .sheet-col2 input {
+	text-align: right;
+}
+.sheet-rituals .sheet-row-rituals .sheet-col3 {
+	width: 50px;
+	border-left: 1px solid #c0c0c0;
+}
+.sheet-rituals .sheet-row-rituals .sheet-col3 input {
+	text-align: right;
+}
+.sheet-rituals .sheet-row-details input {
+	text-align: left;
+}
+.sheet-rituals .sheet-row-details textarea {
+	height: 20px;
+	margin-bottom: 2px;
+}
+.sheet-rituals .sheet-row-details .sheet-col0 {
+	width: 40px;
+}
+.sheet-rituals .sheet-row-details .sheet-col1 {
+	width: calc(100% - 40px);
+}
+.sheet-rituals .sheet-row-details .sheet-col2 {
+	width: 118px;
+}
+.sheet-rituals .sheet-row-details .sheet-col3 {
+	width: 40px;
+}
+.sheet-rituals .sheet-row-details .sheet-col3 input {
+	text-align: right;
+}
+.sheet-rituals .sheet-row-details .sheet-col4 {
+	width: 8px;
+}
+.sheet-rituals .sheet-row-details .sheet-col5 {
+	width: 40px;
+}
+.sheet-rituals .sheet-row-details .sheet-col6 {
+	width: calc(100% - 158px);
+}
+.sheet-rituals .sheet-row-details-rowid {
+	height: 14px;
+	font-size: 10px;
+}
+.sheet-rituals .sheet-row-details-rowid input {
+	height: 14px;
+    font-size: 10px;
+    padding-bottom: 4px;
+}
+.sheet-rituals .sheet-row-details-rowid .sheet-col2 {
+	width: 120px;
+    margin-left: 40px;
+}
+.sheet-rituals .sheet-row-details-rowid .sheet-col3 {
+	width: 160px;
+}
+
+/* ===================== NOTES TAB ====================================== */
+
+.sheet-notes {
+	width: calc(100% - 0.2em);
+}
+.sheet-notes textarea {
+	width: 100%;
+	resize: vertical;
+}
+
+/* ===== ===== ===== ===== Spell Setup ===== ===== ===== ===== */
+
+.sheet-magic {
+	width: 225px;
+	clear: right;
+}
+.sheet-magic .sheet-header .sheet-col0 {
+	width: 100%;
+}
+.sheet-magic .sheet-col0 {
+	width: calc(100% - 50px);
+	text-align: left;
+}
+.sheet-magic .sheet-col1 {
+	width: 50px;
+}
+.sheet-charactersheet-settings { width: calc( 100% - 0.4em);}
+.sheet-charactersheet-settings .sheet-header-charactersheet-settings { width: 100%;}
+.sheet-charactersheet-settings .sheet-header-charactersheet-settings .sheet-col0 { width: 100%; }
 
 
-.sheet-spells { width: calc(100% - 0.4em); }
-.sheet-spells .sheet-col0 { width: calc(100% - 432px); }
-.sheet-spells .sheet-col0 input { text-align:left; }
-.sheet-spells .sheet-col1 { width: 22px; }
-.sheet-spells .sheet-col1 input { text-align:left; }
-.sheet-spells .sheet-col2 { width: 40px; }
-.sheet-spells .sheet-col3 { width: 50px; }
-.sheet-spells .sheet-col4 { width: 40px; }
-.sheet-spells .sheet-col5 { width: 60px; }
-.sheet-spells .sheet-col6 { width: 60px; }
-.sheet-spells .sheet-col7 { width: 60px; }
-.sheet-spells .sheet-col8 { width: 60px; }
-.sheet-spells .sheet-col9 { width: 40px; }
-.sheet-spells .sheet-row-stats .sheet-col0 { margin-left: 20px; width: calc(100% - 452px); }
 
-.sheet-rituals { width: calc(100% - 0.4em); resize: vertical ; overflow: initial;}
-.sheet-rituals .sheet-col0 { width: calc(100% - 242px) ; }
-.sheet-rituals .sheet-col1 { width: 22px; } /* Roll Button */
-.sheet-rituals .sheet-col2 { width: 60px; }
-.sheet-rituals .sheet-col3 { width: 40px; }
-.sheet-rituals .sheet-col8 { width: 60px; }
-.sheet-rituals .sheet-col9 { width: 60px; }
-.sheet-ritualdescription .sheet-row { min-height: 22px;}
-.sheet-ritualdescription .sheet-row .sheet-col110 { width: calc(100% - 0.4em); min-height:22px;}
-.sheet-rituals .sheet-ritualdescription .sheet-row .sheet-col110 textarea { width: 790px;
-padding: 8px; 
-min-height: 22px;
-resize: auto;}
+.sheet-experience {
+	width: 225px;
+	float: right;
+}
+.sheet-experience .sheet-header-experience .sheet-col0 {
+	width: 100%;
+}
+.sheet-experience .sheet-subheader-experience .sheet-col0 {
+	width: calc(100% - 75px);
+}
+.sheet-experience .sheet-subheader-experience .sheet-col1 {
+	width: 75px;
+}
+.sheet-experience .sheet-subheader-experience .sheet-col1 input {
+	width: 75px;
+	text-align: -webkit-center;
+	background-color: #fff;
+}
+.sheet-experience .sheet-row-experience .sheet-col0 {
+	width: calc(100% - 75px);
+	text-align: left;
+}
+.sheet-experience .sheet-row-experience .sheet-col0 input {
+	text-align: left;
+}
+.sheet-experience .sheet-row-experience .sheet-col1 {
+	width: 75px;
+}
+.sheet-experience .sheet-row-experience .sheet-col1 input {
+	text-align: -webkit-center;
+	background-color: #fff;
+}
+.sheet-campaign-settings {
+	width: calc(100% - 0.4em);
+}
+.sheet-campaign-settings .sheet-header-campaign-settings .sheet-col0 {
+	width: 100%;
+}
+.sheet-campaign-settings .sheet-row-tech_level .sheet-col0 {
+	width: 180px;
+	padding-left: 2px;
+}
+.sheet-campaign-settings .sheet-row-tech_level .sheet-col1 {
+	width: 30px;
+}
+.sheet-campaign-settings .sheet-row-tech_level .sheet-col2 {
+	width: calc(100% - 210px);
+}
+.sheet-campaign-settings .sheet-row-tech_level .sheet-col2 input {
+	width: calc(100% - 210px);
+	text-align: left;
+}
+.sheet-campaign-settings .sheet-row-expanded-manuevers .sheet-col0 {
+	width: 180px;
+	padding-left: 2px;
+	}
 
-.sheet-rituals .sheet-row-stats .sheet-col0 { margin-left: 20px; width: calc(100% - 262px); }
-.sheet-rituals .sheet-row-stats .sheet-col0 input { text-align:left; }
-.sheet-rituals .sheet-row-details .sheet-col0 input { text-align:left; }
-.sheet-rituals .sheet-row-stats .sheet-col1 { width: 22px; } /* Roll Button */
-.sheet-rituals .sheet-row-details .sheet-col1 input { text-align:left; }
-.sheet-rituals .sheet-row-stats .sheet-col2 { width: 40px; }
-.sheet-rituals .sheet-row-stats .sheet-col3 { width: 40px; margin-left: 15px; }
-
+.sheet-campaign-settings .sheet-row-expanded-manuevers .sheet-col2 { width: 22px; }
+.sheet-logo {
+	width: 229px;
+	margin: auto;
+}
+/* ====================================================================== */
 
 .sheet-hidden {
-    display: none;
+	display: none;
 }
 
-/* ====roll template styling========== */ /*------------GURPS Roll Template-----------------------*/
-
-.sheet-rolltemplate-GURPS table {
-    width: 100%;
-	padding: 10px;
-    background-color: #f5f5f0;
-    border: 1px solid;
+/* ======================================================================= */
+/* ======================== ROLL TEMPLATES =============================== */
+/* ======================================================================= */
+/* -------------------- ATTRIBUTE ROLL TEMPLATE -------------------------- */
+.sheet-rolltemplate-GURPSATTR {
+	width: 100%;
 }
-
-
-.sheet-rolltemplate-GURPS .sheet-header {
-    font-family: 'Russo One', sans-serif;
-    color: #7a0404;
-    padding: 4px;
-    line-height: 1.4em;
-    font-size: 1.2em;
+.sheet-rolltemplate-GURPSATTR .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
     font-weight: bold;
-    width: 100%;
-    height: 100%;
-    border-spacing: 0;
-	border: 1px solid #511313;
-    background: radial-gradient(#f5f5f0, #ebebe0, #e0e0d1);
-}
-
-.sheet-rolltemplate-GURPS .sheet-subheader {
     color: #000000;
-    font-size: 1em;
-    font-style: italic;
-	font-weight: bold;
+    word-spacing: -0.4px;
+    background: #BC988A;
+	background: -moz-linear-gradient(top, #BC988A 0%, #fff7ee 100%);
+	background: -webkit-linear-gradient(top, #BC988A 0%, #fff7ee 100%);
+	background: linear-gradient(to bottom, #BC988A 0%, #fff7ee 100%);
+    border: 3px ridge #941411;
+    border-radius: 5px;
+    text-align: center;
+}
+.sheet-rolltemplate-GURPSATTR .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSATTR .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSATTR .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSATTR .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSATTR .sheet-note-box .sheet-notebar {
+    color: #000000;
+    font-variant: small-caps;
+    text-transform: uppercase;
+}
+.sheet-rolltemplate-GURPSATTR .sheet-name-box .sheet-notestext {
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* ---------------- BASCI DAMAGE ROLL TEMPLATE -------------------------- */
+.sheet-rolltemplate-GURPSBASIC {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSBASIC .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    word-spacing: -0.4px;
+    background: #BC988A;
+	background: -moz-linear-gradient(top, #BC988A 0%, #fff7ee 100%);
+	background: -webkit-linear-gradient(top, #BC988A 0%, #fff7ee 100%);
+	background: linear-gradient(to bottom, #BC988A 0%, #fff7ee 100%);
+    border: 3px ridge #941411;
+    border-radius: 5px;
+    text-align: center;
+}
+.sheet-rolltemplate-GURPSBASIC .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSBASIC .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+	padding: 2px;
+}
+/* -------------------- ADVANTAGE ROLL TEMPLATE -------------------------- */
+.sheet-rolltemplate-GURPSADV {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSADV .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    word-spacing: -0.4px;
+	background: linear-gradient(to bottom, #C6D8EC 0%, #f8fcff 100%);
+	border: 3px ridge #0679b2;
+	border-radius: 5px;
 	text-align: center;
-	padding: 0px;
 }
-.sheet-rolltemplate-GURPS .sheet-notes {
+.sheet-rolltemplate-GURPSADV .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSADV .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSADV .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSADV .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSADV .sheet-name-box .sheet-notestext {
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* ------------------- DISADVANTAGE ROLL TEMPLATE ------------------------ */
+.sheet-rolltemplate-GURPSDISAD {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSDISAD .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
     color: #000000;
-    font-size: .8em;
-	line-height: 1.2em;
-	padding: 0px;
-}
-
-.sheet-rolltemplate-GURPS .sheet-hitlocation {
-    color: #ff0000;
-    font-size: .8em;
-    font-style: bold;
-	padding: 0px;
-}
-
-.sheet-rolltemplate-GURPS .sheet-hitlocationnotes {
-    color: #000000;
-    font-size: .8em;
-	padding: 0px;
-}
-
-.sheet-rolltemplate-GURPS .sheet-hitlocation .inlineresult .showtip .tipsy-n {
-    color: #000000;
-    font-size: .8em;
-	padding: 0px;
-	border: none;
-}
-
-.sheet-rolltemplate-GURPS .sheet-success {
-    color: #00802b;
-    font-size: 1.2em;
-	font-weight: bold;
-	padding: 0px;
-}
-
-.sheet-rolltemplate-GURPS .sheet-fail {
-    color: #cc3300;
-    font-size: 1.2em;
-	font-weight: bold;
-	padding: 0px;
-}
-
-.sheet-rolltemplate-GURPS .sheet-tcat {
-	font-weight: bold;
-}
-
-.sheet-rolltemplate-GURPS td {
-    padding: 0px;
+    word-spacing: -0.4px;
+	background: linear-gradient(to bottom, #c5aca7 0%, #fbf7f6 100%);
+	border: 3px ridge #884b38;
+	border-radius: 5px;
 	text-align: center;
-	background: transparent;
 }
-
-.sheet-rolltemplate-GURPS .sheet-critresult	{
+.sheet-rolltemplate-GURPSDISAD .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSDISAD .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSDISAD .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSDISAD .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSDISAD .sheet-name-box .sheet-notestext {
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* ----------------- TRAIT ROLL TEMPLATE --------------- */
+.sheet-rolltemplate-GURPSTRAIT {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSTRAIT .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    letter-spacing: -0.4px;
+    word-spacing: -0.4px;
+	background: linear-gradient(to bottom, #dca392 0%, #fff5f8 100%);
+	border: 3px ridge #d31f28;
+	border-radius: 5px;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSTRAIT .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSTRAIT .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSTRAIT .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSTRAIT .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSTRAIT .sheet-name-box .sheet-notestext {
+	font-size: 14px;
+	
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* ----------------- SKILL ROLL TEMPLATE --------------- */
+.sheet-rolltemplate-GURPSSKILL {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSSKILL .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    letter-spacing: -0.4px;
+    word-spacing: -0.4px;
+	background: linear-gradient(to bottom, #c1bcdc 0%, #eae8ff 100%);
+	border: 3px ridge #473d96;
+	border-radius: 5px;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSSKILL .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSSKILL .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSSKILL .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSSKILL .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSSKILL .sheet-name-box .sheet-notestext {
+	font-size: 14px;
+	font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* ----------------- TECHNIQUE ROLL TEMPLATE --------------- */
+.sheet-rolltemplate-GURPSTECH {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSTECH .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    letter-spacing: -0.4px;
+    word-spacing: -0.4px;
+	background: linear-gradient(to bottom, #c1bcdc 0%, #eae8ff 100%);
+	border: 3px ridge #473d96;
+	border-radius: 5px;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSTECH .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSTECH .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSTECH .sheet-name-box .sheet-parentbar {
+	font-style: italic;
+    font-weight: normal;
+}
+.sheet-rolltemplate-GURPSTECH .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSTECH .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSTECH .sheet-name-box .sheet-notestext {
+	font-size: 14px;
+	
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* ----------------- DEFENSE ROLL TEMPLATE --------------- */
+.sheet-rolltemplate-GURPSDEFENSE {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSDEFENSE .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    letter-spacing: -0.4px;
+    word-spacing: -0.4px;
+	background: linear-gradient(to bottom, #7599bb 0%, #f3f6fb 100%);
+	border: 3px ridge #03507e;
+	border-radius: 5px;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSDEFENSE .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSDEFENSE .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSDEFENSE .sheet-name-box .sheet-parentbar {
+	font-style: italic;
+    font-weight: normal;
+}
+.sheet-rolltemplate-GURPSDEFENSE .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSDEFENSE .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSDEFENSE .sheet-name-box .sheet-notestext {
+	font-size: 14px;
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* ----------------- ATTACK ROLL TEMPLATE --------------- */
+.sheet-rolltemplate-GURPSATTACK {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSATTACK .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    letter-spacing: -0.4px;
+    word-spacing: -0.4px;
+	background: linear-gradient(to bottom, #7599bb 0%, #f3f6fb 100%);
+	border: 3px ridge #03507e;
+	border-radius: 5px;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSATTACK .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSATTACK .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSATTACK .sheet-name-box .sheet-parentbar {
+	font-style: italic;
+    font-weight: normal;
+}
+.sheet-rolltemplate-GURPSATTACK .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSATTACK .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSATTACK .sheet-name-box .sheet-notestext {
+	font-size: 14px;
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* ----------- GURPSDAMAGE ------------------- */
+.sheet-rolltemplate-GURPSDAMAGE .sheet-damage-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    word-spacing: -0.4px;
+	background: linear-gradient(to bottom, #94c3bb 0%, #f6ffff 100%);
+	border: 3px ridge #02786a;
+	border-radius: 5px;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSDAMAGE .sheet-damage-box .sheet-damagebar {
+    font-size: 9px;
+    letter-spacing: 0px;
+    word-spacing: 0px;
+    color: #fff;
+	background-color: #02786a;
+    font-weight: bold;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: small-caps;
+    text-transform: uppercase;
+    border-bottom: 1px ridge #02786a;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+}
+.sheet-rolltemplate-GURPSDAMAGE .sheet-damage-box .sheet-damagebar .sheet-dam0 {
+	display: inline-block;
+	width: 23%;
+	text-align: center;
+	-webkit-border-radius: 5px 0px 0px 0px;
+	border-radius: 5px 0px 0px 0px;
+}
+.sheet-rolltemplate-GURPSDAMAGE .sheet-damage-box .sheet-damagebar .sheet-dam1 {
+	display: inline-block;
+	width: 18%;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSDAMAGE .sheet-damage-box .sheet-damagebar .sheet-dam2 {
+	display: inline-block;
+	width: 35%;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSDAMAGE .sheet-damage-box .sheet-damagebar .sheet-dam3 {
+	display: inline-block;
+	width: 20%;
+	text-align: center;
+	-webkit-border-radius: 0px 5px 0px 0px;
+	border-radius: 0px 5px 0px 0px;
+}
+.sheet-rolltemplate-GURPSDAMAGE .sheet-damage-box .sheet-damagetext {
+	font-size: 10px;
+	letter-spacing: 0px;
+	word-spacing: 0px;
 	color: #000000;
-	background: transparent;
-	font-weight: lighter;
-	font-size: 1em;
+	text-decoration: none;
+	font-style: normal;
+	font-variant: small-caps;
+	text-transform: uppercase;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border-bottom: 1px ridge #02786a; 
 }
-
-.sheet-rolltemplate-GURPS .inlinerollresult  {
+.sheet-rolltemplate-GURPSDAMAGE .sheet-damage-box .sheet-damagetext .sheet-dam0 {
+	display: inline-block;
+	width: 22%;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSDAMAGE .sheet-damage-box .sheet-damagetext .sheet-dam1 {
+	display: inline-block;
+	width: 18%;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSDAMAGE .sheet-damage-box .sheet-damagetext .sheet-dam2 {
+	display: inline-block;
+	width: 35%;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSDAMAGE .sheet-damage-box .sheet-damagetext .sheet-dam3 {
+	display: inline-block;
+	width: 20%;
+	text-align: center;
+}
+/* ------- WOUND MODULE ------------ */
+.sheet-rolltemplate-GURPSDAMAGE .sheet-damage-box .sheet-woundbar {
+	text-align: center;
+	color: #fff;
+	background-color: #02786a;
+	font-size: 9px;
+	letter-spacing: 0px;
+	word-spacing: 0px;
+	font-weight: bold;
+	text-decoration: none;
+	text-transform: uppercase;
+	border-bottom: 1px ridge #000000;
+}
+.sheet-rolltemplate-GURPSDAMAGE .sheet-damage-box .sheet-woundtext {
+	text-align:left;
+	padding: 2px;
+	font-weight: normal;
+}
+/* ----------------- MAGIC ROLL TEMPLATE --------------- */
+.sheet-rolltemplate-GURPSMAGIC {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSMAGIC .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
     color: #000000;
-	font-size: 1em;
-	background-color: transparent;
-    border: none;
+    letter-spacing: -0.4px;
+    word-spacing: -0.4px;
+	background: linear-gradient(to bottom, #e6d1e2 0%, #ffe7ff 100%);
+	border: 3px ridge #a50974;
+	border-radius: 5px;
+	text-align: center;
 }
-
-.sheet-rolltemplate-GURPS .inlinerollresult.fullfail {
-    color: #000000;
-	font-size: 1em;
-	background-color: transparent;
-    border: none;
+.sheet-rolltemplate-GURPSMAGIC .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
 }
-
-.sheet-rolltemplate-GURPS .inlinerollresult.fullcrit {
+.sheet-rolltemplate-GURPSMAGIC .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+	border-top: 1px ridge #a50974;
+}
+.sheet-rolltemplate-GURPSMAGIC .sheet-name-box .sheet-magictext {
+	font-size: 10px;
 	color: #000000;
-	font-size: 1em;
-	background-color: transparent;
-    border: none;
+	text-decoration: none;
+	font-variant: small-caps;
+	text-transform: uppercase;
+	font-style: italic;
 }
-
-.sheet-rolltemplate-GURPS .inlinerollresult.importantroll {
+.sheet-rolltemplate-GURPSMAGIC .sheet-name-box .sheet-magictext .sheet-cell1 {
+	width: 24%;
+    display: inline-block;
+    text-align: left;
+}
+.sheet-rolltemplate-GURPSMAGIC .sheet-name-box .sheet-magictext .sheet-cell2 {
+	width: 24%;
+    display: inline-block;
+    text-align: left;
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSMAGIC .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSMAGIC .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSMAGIC .sheet-name-box .sheet-notestext {
+	font-size: 14px;
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* -----------RITUAL ROLL TEMPLATE ------------------- */
+.sheet-rolltemplate-GURPSRITUAL {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSRITUAL .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
     color: #000000;
-	font-size: 1em;
-	background-color: transparent;
-    border: none;
+    letter-spacing: -0.4px;
+    word-spacing: -0.4px;
+    background: linear-gradient(to bottom, #ffdf83 0%, #FFF8DF 100%);
+    border: 3px ridge #daa824;
+    border-radius: 5px;
+    text-align: center;
 }
-
-.sheet-rolltemplate-GURPS .sheet-no_border.inlinerollresult {
+.sheet-rolltemplate-GURPSRITUAL .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSRITUAL .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSRITUAL .sheet-name-box .sheet-ritualbar {
+	font-size: 9px;
+    text-transform: uppercase;
+    background-color: #daa823;
+    color: #000;
+}
+.sheet-rolltemplate-GURPSRITUAL .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSRITUAL .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSRITUAL .sheet-name-box .sheet-notestext {
+	font-size: 14px;
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* -----------FRIGHT ROLL TEMPLATE ------------------- */
+.sheet-rolltemplate-GURPSFRIGHT {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSFRIGHT .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
     color: #000000;
-	font-size: 1em;
-	background-color: transparent;
-    border: none;
+    letter-spacing: -0.4px;
+    word-spacing: -0.4px;
+    background: linear-gradient(to bottom, #C9C9C9 0%, #E7E7E7 100%);
+    border: 3px ridge #000000;
+    border-radius: 5px;
+    text-align: center;
 }
-
-
-.sheet-rolltemplate-GURPS-rollabletable .inlinerollresult.fullfail {
+.sheet-rolltemplate-GURPSFRIGHT .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSFRIGHT .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSFRIGHT .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSFRIGHT .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSFRIGHT .sheet-name-box .sheet-fearbar {
+	font-size: 9px;
+    text-transform: uppercase;
+    background-color: #000000;
+    color: #FFF;
+}
+.sheet-rolltemplate-GURPSFRIGHT .sheet-name-box .sheet-feartext {
+	font-size: 14px;
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* ----GM Rolltemplates ---- */
+.sheet-rolltemplate-GURPSATTRGM {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSATTRGM .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
     color: #000000;
-	font-size: 1em;
-	background-color: transparent;
-    border: none;
+    word-spacing: -0.4px;
+    background: #BC988A;
+	background: -moz-linear-gradient(top, #BC988A 0%, #fff7ee 100%);
+	background: -webkit-linear-gradient(top, #BC988A 0%, #fff7ee 100%);
+	background: linear-gradient(to bottom, #BC988A 0%, #fff7ee 100%);
+    border: 3px ridge #ff0000;
+    border-radius: 5px;
+    text-align: center;
 }
-
-.sheet-rolltemplate-GURPS-rollabletable .inlinerollresult.fullcrit {
+.sheet-rolltemplate-GURPSATTRGM .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSATTRGM .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSATTRGM .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSATTRGM .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSATTRGM .sheet-note-box .sheet-notebar {
+    color: #000000;
+    font-variant: small-caps;
+    text-transform: uppercase;
+}
+.sheet-rolltemplate-GURPSATTRGM .sheet-name-box .sheet-notestext {
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* ---------------- BASCI DAMAGE ROLL TEMPLATE -------------------------- */
+.sheet-rolltemplate-GURPSBASICGM {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSBASICGM .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    word-spacing: -0.4px;
+    background: #BC988A;
+	background: -moz-linear-gradient(top, #BC988A 0%, #fff7ee 100%);
+	background: -webkit-linear-gradient(top, #BC988A 0%, #fff7ee 100%);
+	background: linear-gradient(to bottom, #BC988A 0%, #fff7ee 100%);
+    border: 3px ridge #ff0000;
+    border-radius: 5px;
+    text-align: center;
+}
+.sheet-rolltemplate-GURPSBASICGM .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSBASICGM .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+	padding: 2px;
+}
+/* -------------------- ADVANTAGE ROLL TEMPLATE -------------------------- */
+.sheet-rolltemplate-GURPSADVGM {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSADVGM .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    word-spacing: -0.4px;
+	background: linear-gradient(to bottom, #C6D8EC 0%, #f8fcff 100%);
+	border: 3px ridge #ff0000;
+	border-radius: 5px;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSADVGM .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSADVGM .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSADVGM .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSADVGM .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSADVGM .sheet-name-box .sheet-notestext {
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* ------------------- DISADVANTAGE ROLL TEMPLATE ------------------------ */
+.sheet-rolltemplate-GURPSDISADGM {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSDISADGM .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    word-spacing: -0.4px;
+	background: linear-gradient(to bottom, #c5aca7 0%, #fbf7f6 100%);
+	border: 3px ridge #ff0000;
+	border-radius: 5px;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSDISADGM .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSDISADGM .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSDISADGM .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSDISADGM .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSDISADGM .sheet-name-box .sheet-notestext {
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* ----------------- TRAIT ROLL TEMPLATE --------------- */
+.sheet-rolltemplate-GURPSTRAITGM {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSTRAITGM .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    letter-spacing: -0.4px;
+    word-spacing: -0.4px;
+	background: linear-gradient(to bottom, #dca392 0%, #fff5f8 100%);
+	border: 3px ridge #ff0000;
+	border-radius: 5px;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSTRAITGM .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSTRAITGM .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSTRAITGM .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSTRAITGM .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSTRAITGM .sheet-name-box .sheet-notestext {
+	font-size: 14px;
+	
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* ----------------- SKILL ROLL TEMPLATE --------------- */
+.sheet-rolltemplate-GURPSSKILLGM {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSSKILLGM .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    letter-spacing: -0.4px;
+    word-spacing: -0.4px;
+	background: linear-gradient(to bottom, #c1bcdc 0%, #eae8ff 100%);
+	border: 3px ridge #ff0000;
+	border-radius: 5px;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSSKILLGM .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSSKILLGM .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSSKILLGM .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSSKILLGM .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSSKILLGM .sheet-name-box .sheet-notestext {
+	font-size: 14px;
+	font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* ----------------- TECHNIQUE ROLL TEMPLATE --------------- */
+.sheet-rolltemplate-GURPSTECHGM {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSTECHGM .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    letter-spacing: -0.4px;
+    word-spacing: -0.4px;
+	background: linear-gradient(to bottom, #c1bcdc 0%, #eae8ff 100%);
+	border: 3px ridge #ff0000;
+	border-radius: 5px;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSTECHGM .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSTECHGM .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSTECHGM .sheet-name-box .sheet-parentbar {
+	font-style: italic;
+    font-weight: normal;
+}
+.sheet-rolltemplate-GURPSTECHGM .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSTECHGM .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSTECHGM .sheet-name-box .sheet-notestext {
+	font-size: 14px;
+	
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* ----------------- DEFENSE ROLL TEMPLATE --------------- */
+.sheet-rolltemplate-GURPSDEFENSEGM {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSDEFENSEGM .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    letter-spacing: -0.4px;
+    word-spacing: -0.4px;
+	background: linear-gradient(to bottom, #7599bb 0%, #f3f6fb 100%);
+	border: 3px ridge #ff0000;
+	border-radius: 5px;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSDEFENSEGM .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSDEFENSEGM .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSDEFENSEGM .sheet-name-box .sheet-parentbar {
+	font-style: italic;
+    font-weight: normal;
+}
+.sheet-rolltemplate-GURPSDEFENSEGM .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSDEFENSEGM .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSDEFENSEGM .sheet-name-box .sheet-notestext {
+	font-size: 14px;
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* ----------------- ATTACK ROLL TEMPLATE --------------- */
+.sheet-rolltemplate-GURPSATTACKGM {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSATTACKGM .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    letter-spacing: -0.4px;
+    word-spacing: -0.4px;
+	background: linear-gradient(to bottom, #7599bb 0%, #f3f6fb 100%);
+	border: 3px ridge #ff0000;
+	border-radius: 5px;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSATTACKGM .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSATTACKGM .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSATTACKGM .sheet-name-box .sheet-parentbar {
+	font-style: italic;
+    font-weight: normal;
+}
+.sheet-rolltemplate-GURPSATTACKGM .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSATTACKGM .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSATTACKGM .sheet-name-box .sheet-notestext {
+	font-size: 14px;
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* ----------- GURPSDAMAGE ------------------- */
+.sheet-rolltemplate-GURPSDAMAGEGM .sheet-damage-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    word-spacing: -0.4px;
+	background: linear-gradient(to bottom, #94c3bb 0%, #f6ffff 100%);
+	border: 3px ridge #ff0000;
+	border-radius: 5px;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSDAMAGEGM .sheet-damage-box .sheet-damagebar {
+    font-size: 9px;
+    letter-spacing: 0px;
+    word-spacing: 0px;
+    color: #fff;
+	background-color: #02786a;
+    font-weight: bold;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: small-caps;
+    text-transform: uppercase;
+    border-bottom: 1px ridge #02786a;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+}
+.sheet-rolltemplate-GURPSDAMAGEGM .sheet-damage-box .sheet-damagebar .sheet-dam0 {
+	display: inline-block;
+	width: 23%;
+	text-align: center;
+	-webkit-border-radius: 5px 0px 0px 0px;
+	border-radius: 5px 0px 0px 0px;
+}
+.sheet-rolltemplate-GURPSDAMAGEGM .sheet-damage-box .sheet-damagebar .sheet-dam1 {
+	display: inline-block;
+	width: 18%;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSDAMAGEGM .sheet-damage-box .sheet-damagebar .sheet-dam2 {
+	display: inline-block;
+	width: 35%;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSDAMAGEGM .sheet-damage-box .sheet-damagebar .sheet-dam3 {
+	display: inline-block;
+	width: 20%;
+	text-align: center;
+	-webkit-border-radius: 0px 5px 0px 0px;
+	border-radius: 0px 5px 0px 0px;
+}
+.sheet-rolltemplate-GURPSDAMAGEGM .sheet-damage-box .sheet-damagetext {
+	font-size: 10px;
+	letter-spacing: 0px;
+	word-spacing: 0px;
 	color: #000000;
-	font-size: 1em;
-	background-color: transparent;
-    border: none;
+	text-decoration: none;
+	font-style: normal;
+	font-variant: small-caps;
+	text-transform: uppercase;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border-bottom: 1px ridge #02786a; 
+}
+.sheet-rolltemplate-GURPSDAMAGEGM .sheet-damage-box .sheet-damagetext .sheet-dam0 {
+	display: inline-block;
+	width: 22%;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSDAMAGEGM .sheet-damage-box .sheet-damagetext .sheet-dam1 {
+	display: inline-block;
+	width: 18%;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSDAMAGEGM .sheet-damage-box .sheet-damagetext .sheet-dam2 {
+	display: inline-block;
+	width: 35%;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSDAMAGEGM .sheet-damage-box .sheet-damagetext .sheet-dam3 {
+	display: inline-block;
+	width: 20%;
+	text-align: center;
+}
+/* ------- WOUND MODULE ------------ */
+.sheet-rolltemplate-GURPSDAMAGEGM .sheet-damage-box .sheet-woundbar {
+	text-align: center;
+	color: #fff;
+	background-color: #02786a;
+	font-size: 9px;
+	letter-spacing: 0px;
+	word-spacing: 0px;
+	font-weight: bold;
+	text-decoration: none;
+	text-transform: uppercase;
+	border-bottom: 1px ridge #000000;
+}
+.sheet-rolltemplate-GURPSDAMAGEGM .sheet-damage-box .sheet-woundtext {
+	text-align:left;
+	padding: 2px;
+	font-weight: normal;
+}
+/* ----------------- MAGIC ROLL TEMPLATE --------------- */
+.sheet-rolltemplate-GURPSMAGICGM {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSMAGICGM .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    letter-spacing: -0.4px;
+    word-spacing: -0.4px;
+	background: linear-gradient(to bottom, #e6d1e2 0%, #ffe7ff 100%);
+	border: 3px ridge #ff0000;
+	border-radius: 5px;
+	text-align: center;
+}
+.sheet-rolltemplate-GURPSMAGICGM .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSMAGICGM .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+	border-top: 1px ridge #a50974;
+}
+.sheet-rolltemplate-GURPSMAGICGM .sheet-name-box .sheet-magictext {
+	font-size: 10px;
+	color: #000000;
+	text-decoration: none;
+	font-variant: small-caps;
+	text-transform: uppercase;
+	font-style: italic;
+}
+.sheet-rolltemplate-GURPSMAGICGM .sheet-name-box .sheet-magictext .sheet-cell1 {
+	width: 24%;
+    display: inline-block;
+    text-align: left;
+}
+.sheet-rolltemplate-GURPSMAGICGM .sheet-name-box .sheet-magictext .sheet-cell2 {
+	width: 24%;
+    display: inline-block;
+    text-align: left;
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSMAGICGM .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSMAGICGM .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSMAGICGM .sheet-name-box .sheet-notestext {
+	font-size: 14px;
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* -----------RITUAL ROLL TEMPLATE ------------------- */
+.sheet-rolltemplate-GURPSRITUALGM {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSRITUALGM .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    letter-spacing: -0.4px;
+    word-spacing: -0.4px;
+    background: linear-gradient(to bottom, #ffdf83 0%, #FFF8DF 100%);
+    border: 3px ridge #ff0000;
+    border-radius: 5px;
+    text-align: center;
+}
+.sheet-rolltemplate-GURPSRITUALGM .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSRITUALGM .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSRITUALGM .sheet-name-box .sheet-ritualbar {
+	font-size: 9px;
+    text-transform: uppercase;
+    background-color: #daa823;
+    color: #000;
+}
+.sheet-rolltemplate-GURPSRITUALGM .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSRITUALGM .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSRITUALGM .sheet-name-box .sheet-notestext {
+	font-size: 14px;
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
+}
+/* -----------FRIGHT ROLL TEMPLATE ------------------- */
+.sheet-rolltemplate-GURPSFRIGHTGM {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSFRIGHTGM .sheet-name-box {
+	width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    letter-spacing: -0.4px;
+    word-spacing: -0.4px;
+    background: linear-gradient(to bottom, #C9C9C9 0%, #E7E7E7 100%);
+    border: 3px ridge #ff0000;
+    border-radius: 5px;
+    text-align: center;
+}
+.sheet-rolltemplate-GURPSFRIGHTGM .sheet-name-box .sheet-namebar {
+	width: 100%;
+    font-size: 15px;
+    padding-top: 3px;
+}
+.sheet-rolltemplate-GURPSFRIGHTGM .sheet-name-box .sheet-rollbar {
+	font-weight: normal;
+}
+.sheet-rolltemplate-GURPSFRIGHTGM .sheet-name-box .sheet-successbar {
+	text-transform: uppercase;
+	color: #009000;
+}
+.sheet-rolltemplate-GURPSFRIGHTGM .sheet-name-box .sheet-failbar {
+	text-transform: uppercase;
+	color: #e2002b;
+}
+.sheet-rolltemplate-GURPSFRIGHTGM .sheet-name-box .sheet-fearbar {
+	font-size: 9px;
+    text-transform: uppercase;
+    background-color: #000000;
+    color: #FFF;
+}
+.sheet-rolltemplate-GURPSFRIGHTGM .sheet-name-box .sheet-feartext {
+	font-size: 14px;
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+    font-variant: small-caps;
 }
 
-.sheet-rolltemplate-GURPS-rollabletable .inlinerollresult.importantroll {
-    color: #000000;
-	font-size: 1em;
-	background-color: transparent;
-    border: none;
+/* ------ Critical Module ----- */
+.sheet-rolltemplate-GURPSGM {
+	width: 100%;
 }
-
-.sheet-rolltemplate-GURPS-rollabletable .sheet-no_border.inlinerollresult {
+.sheet-rolltemplate-GURPSGM .sheet-critical-box .sheet-critnotes {
+	background: radial-gradient(ellipse at center, #ff8181 0%, #fd2e2e 100%);
+	color: #000;
+    border-radius: 5px;
+    border: 2px ridge #d8d8d8;
+    height: min-content;
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    word-spacing: 0px;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: small-caps;
+    text-transform: none;
+    padding: 4px;
+}
+.sheet-rolltemplate-GURPSGMROLLING {
+	width: 100%;
+}
+.sheet-rolltemplate-GURPSGMROLLING .sheet-GM-box .sheet-gmrolling {
+    background: radial-gradient(ellipse at center, #FCFCFC 0%, #b3b2b2 100%);
     color: #000000;
-	font-size: 1em;
-	background-color: transparent;
-    border: none;
+    border-radius: 5px;
+    border: 3px ridge #000000;
+    height: min-content;
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    word-spacing: 0px;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: small-caps;
+    text-transform: none;
+    padding: 4px;
+}
+.sheet-rolltemplate-GURPSFALLCOLL .sheet-GM-box .sheet-gmrolling {
+    background: radial-gradient(ellipse at center, #FCFCFC 0%, #b3b2b2 100%);
+    color: #000000;
+    border-radius: 5px;
+    border: 3px ridge #000000;
+    height: min-content;
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    word-spacing: 0px;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: small-caps;
+    text-transform: none;
+    padding: 4px;
 }
