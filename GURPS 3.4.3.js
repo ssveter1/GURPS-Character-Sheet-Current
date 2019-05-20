@@ -1,4 +1,4 @@
-// ver 3.4.3  13MAY2019
+// G.U.R.P.S. (Grand Unified Roll Parsing Software) ver 3.4.3  13MAY2019
 function processInlinerolls(msg) {
     if (_.has(msg, 'inlinerolls')) {
         return _.chain(msg.inlinerolls)
